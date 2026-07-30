@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { foodSpots } from '../../data/site';
+---
+<BaseLayout title="幸福駅周辺のグルメ" description="幸福駅構内の軽食、中札内方面の農家レストラン、道の駅、空港での食事など、旅程に合わせた周辺グルメを紹介します。" image="/images/station-1440.webp">
+  <PageHero eyebrow="FOOD & REST" title="幸福の前後に、十勝を味わう。" intro="駅の周囲は静かな農村地域です。徒歩で飲食店を巡る場所ではないため、構内・中札内方面・空港の三方向で考えると選びやすくなります。" image="/images/station-1440.webp" imageSmall="/images/station-640.webp" alt="幸福駅の駅舎と周囲の木々" breadcrumb="周辺グルメ" position="center 45%" />
+
+  <section class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32 lg:px-10">
+    <SectionHeading eyebrow="CHOOSING A STOP" title="食事は、移動方向から選ぶ。" text="幸福駅の周辺は店舗が密集していません。次にどこへ向かうかを決めてから、食事場所を選ぶのが現実的です。" />
+    <div class="mt-14 grid gap-5 md:grid-cols-3">
+      <article class="rounded-[1.7rem] bg-ticket-pale p-7" data-reveal>
+        <span class="text-xs tracking-[0.18em] text-ticket">STAY</span>
+        <h3 class="mt-4 font-serif-jp text-2xl">駅でひと休み</h3>
+        <p class="mt-4 text-sm leading-7 text-ink-soft">短い滞在なら、構内の軽食・甘味・飲み物を。営業状況は現地掲示を確認してください。</p>
+      </article>
+      <article class="rounded-[1.7rem] border border-wood/10 bg-white/65 p-7" data-reveal>
+        <span class="text-xs tracking-[0.18em] text-ticket">SOUTH</span>
+        <h3 class="mt-4 font-serif-jp text-2xl">中札内へ進む</h3>
+        <p class="mt-4 text-sm leading-7 text-ink-soft">農家レストランや道の駅へ。十勝の野菜、鶏肉、乳製品、軽食を旅の一部として楽しめます。</p>
+      </article>
+      <article class="rounded-[1.7rem] border border-wood/10 bg-white/65 p-7" data-reveal>
+        <span class="text-xs tracking-[0.18em] text-ticket">FLIGHT</span>
+        <h3 class="mt-4 font-serif-jp text-2xl">空港へ戻る</h3>
+        <p class="mt-4 text-sm leading-7 text-ink-soft">フライト前なら空港ターミナルで。時間が読みやすく、荷物を持った旅行にも向いています。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="bg-paper-deep/55 py-24 sm:py-32">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <SectionHeading eyebrow="FOOD STOPS" title="旅程に入れやすい四つの選択肢。" />
+      <div class="mt-14 space-y-5">
+        {foodSpots.map((spot, index) => (
+          <article class="grid overflow-hidden rounded-[1.7rem] border border-wood/10 bg-paper md:grid-cols-[220px_1fr]" data-reveal>
+            <div class:list={['flex flex-col justify-between p-7', index === 0 ? 'bg-ticket-pale' : 'bg-white/45']}>
+              <span class="font-serif-jp text-4xl text-ticket">{String(index + 1).padStart(2, '0')}</span>
+              <div class="mt-10">
+                <p class="text-xs tracking-[0.16em] text-ink-soft">{spot.area}</p>
+                <p class="mt-2 text-sm text-wood">{spot.travel}</p>
+              </div>
+            </div>
+            <div class="p-7 sm:p-9">
+              <div class="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <p class="text-xs tracking-[0.16em] text-ticket">{spot.type}</p>
+                  <h2 class="mt-3 font-serif-jp text-2xl leading-relaxed tracking-[0.03em] text-wood-deep sm:text-3xl">{spot.name}</h2>
+                </div>
+              </div>
+              <p class="mt-5 text-sm leading-8 text-ink-soft sm:text-base">{spot.description}</p>
+              <p class="mt-5 rounded-2xl bg-paper-deep/70 px-5 py-4 text-xs leading-6 text-ink-soft/75">営業メモ：{spot.note}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+    <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+      <SectionHeading eyebrow="GOOD TO KNOW" title="周辺グルメで失敗しないために。" />
+      <div class="divide-y divide-wood/12 border-y border-wood/12">
+        {[
+          ['徒歩前提にしない', '幸福駅周辺は、中心市街地のように飲食店が連続する地域ではありません。車移動を前提に計画してください。'],
+          ['昼食時間を先に決める', '農家レストランは昼営業中心、売り切れ終了、定休日や臨時休業がある場合があります。見学時間より先に昼食枠を確保すると安心です。'],
+          ['冬季営業に注意', '冬は営業時間短縮や休業が増えます。空港や帯広市街を予備候補に入れておくと旅程が崩れにくくなります。'],
+          ['情報は当日に再確認', '営業情報は季節・仕入れ・天候で変わることがあります。施設の現地掲示や公式発表を優先してください。'],
+        ].map(([title, text], index) => (
+          <article class="grid gap-3 py-6 sm:grid-cols-[56px_1fr]" data-reveal>
+            <span class="font-serif-jp text-2xl text-ticket">{String(index + 1).padStart(2, '0')}</span>
+            <div><h3 class="font-serif-jp text-xl text-wood-deep">{title}</h3><p class="mt-3 text-sm leading-7 text-ink-soft">{text}</p></div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 pb-12 sm:px-8">
+    <div class="rounded-[2rem] bg-wood-deep px-7 py-12 text-white sm:px-12" data-reveal>
+      <p class="text-xs tracking-[0.18em] text-ticket-soft">EDITORIAL POLICY</p>
+      <h2 class="mt-4 font-serif-jp text-2xl leading-relaxed">このページは、広告順位ではなく旅程の使いやすさで掲載しています。</h2>
+      <p class="mt-4 max-w-3xl text-sm leading-7 text-white/65">店舗の営業や提供内容を保証するものではありません。掲載情報は公開情報をもとに整理し、変更が判明した場合に更新します。</p>
+    </div>
+  </section>
+</BaseLayout>

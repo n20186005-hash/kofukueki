@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import { site, timeline } from '../../data/site';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: '幸福駅の物語',
+  description: '幸福駅の開業、「愛の国から幸福へ」のブーム、広尾線廃止後の保存と現在までを紹介します。',
+  image: `${site.url}/images/station-1440.webp`,
+  mainEntityOfPage: `${site.url}/about/`,
+};
+---
+<BaseLayout title="幸福駅の物語" description="幸福駅の開業、「愛の国から幸福へ」のブーム、広尾線廃止後の保存と現在までを紹介します。" image="/images/station-1440.webp" jsonLd={schema}>
+  <PageHero eyebrow="THE STORY" title="幸福を行き先にした、小さな駅の物語。" intro="列車の停まる駅から、人々の願いが集まる場所へ。幸福駅が歩んできた約70年を、五つの節目でたどります。" image="/images/station-1440.webp" imageSmall="/images/station-640.webp" alt="ピンク色の駅名標がある幸福駅の木造駅舎" breadcrumb="幸福駅の物語" />
+
+  <section class="mx-auto max-w-5xl px-5 py-24 sm:px-8 sm:py-32">
+    <div class="grid gap-14 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
+      <aside class="lg:sticky lg:top-28 lg:self-start" data-reveal>
+        <p class="rule-line text-xs tracking-[0.2em] text-ticket">INTRODUCTION</p>
+        <p class="mt-6 font-serif-jp text-2xl leading-[1.8] tracking-[0.05em] text-wood-deep">駅はなくなっても、<br />「幸福ゆき」は終わらなかった。</p>
+      </aside>
+      <div class="prose-jp" data-reveal>
+        <p>幸福駅は、北海道帯広市の南部、広い畑と空に囲まれた旧国鉄広尾線の駅です。開業当時は地域の暮らしを支える小さな停車場でしたが、「幸福」という地名と、北へ数駅離れた「愛国」という駅名の組み合わせが、人々の想像力を大きく動かしました。</p>
+        <p>1973年、テレビ番組で「愛国から幸福へ」の旅が紹介されると、記念切符を求める人が全国から訪れるようになります。切符は単なる乗車券ではなく、恋愛、結婚、家族、人生の節目に願いを込めるお守りのような存在になりました。</p>
+        <p>1987年に広尾線は廃止され、幸福駅も鉄道駅としての役目を終えます。それでも駅舎やホームは残され、旅人は訪れ続けました。現在の駅舎は2013年に往時の意匠を受け継いで再建されたものです。保存車両や板張りのホームとともに、旧広尾線の記憶を今へ伝えています。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-paper-deep/55 py-24 sm:py-32">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8">
+      <SectionHeading eyebrow="HISTORY" title="五つの時間をたどる。" text="幸福駅を形づくった出来事を、旅の年表としてまとめました。" />
+      <ol class="mt-16 space-y-8">
+        {timeline.map((item, index) => (
+          <li class="grid overflow-hidden rounded-[1.6rem] border border-wood/10 bg-white/60 sm:grid-cols-[180px_1fr]" data-reveal>
+            <div class:list={['flex flex-col justify-center px-7 py-7', index === timeline.length - 1 ? 'bg-ticket-pale' : 'bg-white/45']}>
+              <span class="font-serif-jp text-4xl text-ticket">{item.year}</span>
+              <span class="mt-1 text-[10px] tracking-[0.18em] text-ink-soft/60">{item.era}</span>
+            </div>
+            <div class="px-7 py-7 sm:px-10">
+              <h3 class="font-serif-jp text-2xl tracking-[0.04em] text-wood-deep">{item.title}</h3>
+              <p class="mt-3 text-sm leading-8 text-ink-soft sm:text-base">{item.body}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
+      <div class="photo-frame aspect-[4/3] rounded-[2rem]" data-reveal>
+        <img src="/images/ticket-400.webp" width="400" height="270" loading="lazy" alt="愛国から幸福ゆきの記念切符" class="object-contain p-7 sm:p-12" />
+      </div>
+      <div data-reveal>
+        <p class="rule-line text-xs tracking-[0.2em] text-ticket">THE TICKET</p>
+        <h2 class="mt-5 font-serif-jp text-3xl leading-[1.6] tracking-[0.05em] text-wood-deep sm:text-4xl">切符が運んだのは、<br />行き先よりも願いでした。</h2>
+        <p class="mt-6 text-base leading-8 text-ink-soft">「愛国から幸福ゆき」という言葉は、偶然並んだ二つの駅名から生まれました。簡潔で前向きな響きは時代を越え、今も幸福駅の象徴として受け継がれています。</p>
+        <p class="mt-4 text-sm leading-7 text-ink-soft">現地で見つけた記念券やメッセージは、持ち帰るものと、駅に残すものを分けて大切に扱いましょう。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-5 pb-10 sm:px-8">
+    <div class="rounded-[2rem] bg-wood-deep px-7 py-12 text-white sm:px-12 sm:py-16" data-reveal>
+      <p class="text-xs tracking-[0.2em] text-ticket-soft">NOTE</p>
+      <h2 class="mt-4 font-serif-jp text-2xl leading-relaxed sm:text-3xl">「遺跡」ではなく、今も人が訪れる鉄道文化の場所。</h2>
+      <p class="mt-5 max-w-3xl text-sm leading-8 text-white/68">地図サービスでは “Remains of Kofuku Train Station” と表示されることがありますが、現地では一般に「幸福駅」「幸福鉄道公園」と呼ばれています。廃線跡でありながら、保存・再整備され、現在も旅人を迎える観光地です。</p>
+    </div>
+  </section>
+</BaseLayout>

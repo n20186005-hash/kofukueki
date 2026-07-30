@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+---
+<BaseLayout title="写真・情報の出典" description="KofukuEki.comで使用する写真の作者、ライセンス、情報確認先を掲載しています。" noindex={false}>
+  <section class="mx-auto max-w-5xl px-5 pt-10 sm:px-8 sm:pt-14">
+    <Breadcrumbs items={[{ label: '写真・情報の出典' }]} />
+    <div class="mt-10 border-b border-wood/12 pb-10">
+      <p class="rule-line text-xs tracking-[0.2em] text-ticket">CREDITS</p>
+      <h1 class="mt-6 font-serif-jp text-4xl tracking-[0.06em] text-wood-deep sm:text-5xl">写真・情報の出典</h1>
+      <p class="mt-5 max-w-3xl text-sm leading-7 text-ink-soft">写真はWikimedia Commonsで公開されている作品を、各ライセンス条件に従ってトリミング・縮小・WebP変換して使用しています。</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-5 py-14 sm:px-8 sm:py-20">
+    <h2 class="font-serif-jp text-3xl tracking-[0.05em] text-wood-deep">写真クレジット</h2>
+    <div class="mt-10 overflow-hidden rounded-[1.5rem] border border-wood/10 bg-white/55">
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[760px] border-collapse text-left text-sm">
+          <thead class="bg-ticket-pale text-wood-deep">
+            <tr><th class="px-5 py-4 font-medium">掲載内容</th><th class="px-5 py-4 font-medium">作者</th><th class="px-5 py-4 font-medium">ライセンス</th><th class="px-5 py-4 font-medium">原典</th></tr>
+          </thead>
+          <tbody class="divide-y divide-wood/10 text-ink-soft">
+            <tr><td class="px-5 py-4">幸福駅・青空（hero）</td><td class="px-5 py-4">東京特許許可局</td><td class="px-5 py-4"><a class="underline" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0</a></td><td class="px-5 py-4"><a class="underline" href="https://commons.wikimedia.org/wiki/File:JNR_Kofuku_sta_001.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons ↗</a></td></tr>
+            <tr><td class="px-5 py-4">幸福駅・駅舎</td><td class="px-5 py-4">MaedaAkihiko</td><td class="px-5 py-4"><a class="underline" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="license noopener noreferrer">CC BY-SA 4.0</a></td><td class="px-5 py-4"><a class="underline" href="https://commons.wikimedia.org/wiki/File:Kofuku-STA.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons ↗</a></td></tr>
+            <tr><td class="px-5 py-4">駅舎内部・願い札</td><td class="px-5 py-4">Yasu</td><td class="px-5 py-4"><a class="underline" href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="license noopener noreferrer">CC BY-SA 3.0</a></td><td class="px-5 py-4"><a class="underline" href="https://commons.wikimedia.org/wiki/File:Kofuku_Station_interior.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons ↗</a></td></tr>
+            <tr><td class="px-5 py-4">キハ22 221</td><td class="px-5 py-4">100yen</td><td class="px-5 py-4"><a class="underline" href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="license noopener noreferrer">CC BY-SA 3.0</a></td><td class="px-5 py-4"><a class="underline" href="https://commons.wikimedia.org/wiki/File:JNR_KI_HA_22_221.JPG" target="_blank" rel="noopener noreferrer">Wikimedia Commons ↗</a></td></tr>
+            <tr><td class="px-5 py-4">幸福の鐘</td><td class="px-5 py-4">Rsa</td><td class="px-5 py-4"><a class="underline" href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="license noopener noreferrer">CC BY-SA 3.0</a></td><td class="px-5 py-4"><a class="underline" href="https://commons.wikimedia.org/wiki/File:Koufuku_station_Happy-Bell.JPG" target="_blank" rel="noopener noreferrer">Wikimedia Commons ↗</a></td></tr>
+            <tr><td class="px-5 py-4">愛国から幸福ゆき切符</td><td class="px-5 py-4">Cassiopeia sweet</td><td class="px-5 py-4">Public domain</td><td class="px-5 py-4"><a class="underline" href="https://commons.wikimedia.org/wiki/File:Ticket_from_Aikoku_to_Kofuku_Tokachibus.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons ↗</a></td></tr>
+            <tr><td class="px-5 py-4">愛国駅</td><td class="px-5 py-4">Samiadon</td><td class="px-5 py-4"><a class="underline" href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="license noopener noreferrer">CC BY-SA 3.0</a></td><td class="px-5 py-4"><a class="underline" href="https://commons.wikimedia.org/wiki/File:AikokuStation05.jpg" target="_blank" rel="noopener noreferrer">Wikimedia Commons ↗</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-16 grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <h2 class="font-serif-jp text-3xl tracking-[0.05em] text-wood-deep">情報確認先</h2>
+        <p class="mt-5 text-sm leading-7 text-ink-soft">歴史、アクセス、駐車場、交通、周辺施設の内容は、主に行政・地域観光・交通事業者が公開する資料を照合して作成しています。</p>
+      </div>
+      <ul class="divide-y divide-wood/12 border-y border-wood/12 text-sm">
+        <li class="flex items-center justify-between gap-5 py-5"><span>帯広市「幸福駅・愛国駅」案内</span><a class="shrink-0 underline decoration-wood/25" href="https://www.city.obihiro.hokkaido.jp/tourism/kankouchi/koufuku/1003137.html" target="_blank" rel="noopener noreferrer">確認先 ↗</a></li>
+        <li class="flex items-center justify-between gap-5 py-5"><span>帯広観光コンベンション協会</span><a class="shrink-0 underline decoration-wood/25" href="https://obikan.jp/post_spot/1491/" target="_blank" rel="noopener noreferrer">確認先 ↗</a></li>
+        <li class="flex items-center justify-between gap-5 py-5"><span>十勝バス 路線案内</span><a class="shrink-0 underline decoration-wood/25" href="https://www.tokachibus.jp/routebus/obihiro-hiroo/" target="_blank" rel="noopener noreferrer">確認先 ↗</a></li>
+        <li class="flex items-center justify-between gap-5 py-5"><span>中札内村観光情報</span><a class="shrink-0 underline decoration-wood/25" href="https://kankou-nakasatsunai.com/" target="_blank" rel="noopener noreferrer">確認先 ↗</a></li>
+      </ul>
+    </div>
+
+    <div class="mt-14 rounded-[1.6rem] bg-ticket-pale p-7 text-sm leading-7 text-ink-soft">
+      <strong class="font-medium text-wood-deep">改変内容：</strong> ウェブ表示に合わせたリサイズ、WebP変換、軽微な色調・コントラスト調整、トリミング、OG画像への文字要素追加を行っています。原作品の作者が当サイトを支持・公認していることを意味しません。
+    </div>
+  </section>
+</BaseLayout>

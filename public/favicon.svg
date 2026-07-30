@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#6b3b34"/>
+  <rect x="9" y="15" width="46" height="34" rx="5" fill="#f6dce3"/>
+  <path d="M15 24h34M15 40h34" stroke="#6b3b34" stroke-width="2" stroke-dasharray="3 3"/>
+  <text x="32" y="37" text-anchor="middle" font-size="19" font-family="serif" font-weight="700" fill="#3f2b27">福</text>
+</svg>

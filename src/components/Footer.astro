@@ -1,0 +1,48 @@
+---
+import { navItems, site } from '../data/site';
+---
+<footer class="mt-24 border-t border-wood/10 bg-wood-deep text-white sm:mt-32">
+  <div class="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
+    <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+      <div>
+        <p class="rule-line text-xs tracking-[0.2em] text-ticket-soft">帯広・十勝</p>
+        <p class="mt-7 max-w-xl font-serif-jp text-3xl leading-relaxed tracking-[0.08em] sm:text-4xl">
+          愛の国から、<br />幸福へ。
+        </p>
+        <p class="mt-6 max-w-lg text-sm leading-7 text-white/65">
+          幸福駅の物語と、訪れるために必要な情報を、静かに読みやすくまとめた非公式観光ガイドです。
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-8 text-sm sm:grid-cols-3">
+        <div>
+          <p class="mb-4 text-xs tracking-[0.18em] text-ticket-soft">旅の案内</p>
+          <ul class="space-y-3 text-white/68">
+            {navItems.map((item) => <li><a class="hover:text-white" href={item.href}>{item.label}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <p class="mb-4 text-xs tracking-[0.18em] text-ticket-soft">このサイト</p>
+          <ul class="space-y-3 text-white/68">
+            <li><a class="hover:text-white" href="/photos/">写真で見る</a></li>
+            <li><a class="hover:text-white" href="/credits/">写真・出典</a></li>
+            <li><a class="hover:text-white" href="/privacy/">プライバシー</a></li>
+          </ul>
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+          <p class="mb-4 text-xs tracking-[0.18em] text-ticket-soft">所在地</p>
+          <address class="not-italic leading-7 text-white/68">{site.postalAddress}</address>
+          <a class="mt-3 inline-block text-white underline decoration-white/30 hover:decoration-white" href="/access/">アクセスを確認</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs leading-6 text-white/52 sm:flex-row sm:items-end sm:justify-between">
+      <p>
+        当サイトは幸福駅の非公式観光ガイドです。現地運営者、帯広市、交通事業者とは関係ありません。<br />
+        営業時間・交通情報は変更される場合があります。訪問前に最新情報をご確認ください。
+      </p>
+      <p class="shrink-0">© 2026 {site.domain}</p>
+    </div>
+  </div>
+</footer>

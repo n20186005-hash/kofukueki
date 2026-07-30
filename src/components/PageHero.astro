@@ -1,0 +1,38 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro: string;
+  image: string;
+  imageSmall?: string;
+  alt: string;
+  breadcrumb: string;
+  position?: string;
+}
+const { eyebrow, title, intro, image, imageSmall, alt, breadcrumb, position = 'center' } = Astro.props;
+---
+<section class="mx-auto max-w-7xl px-5 pt-7 sm:px-8 sm:pt-10 lg:px-10">
+  <Breadcrumbs items={[{ label: breadcrumb }]} />
+  <div class="mt-7 grid overflow-hidden rounded-[2rem] bg-wood-deep text-white lg:min-h-[520px] lg:grid-cols-[0.88fr_1.12fr]">
+    <div class="flex flex-col justify-center px-7 py-12 sm:px-12 lg:px-14">
+      <p class="rule-line text-xs tracking-[0.2em] text-ticket-soft">{eyebrow}</p>
+      <h1 class="mt-7 text-balance font-serif-jp text-4xl leading-[1.45] tracking-[0.06em] sm:text-5xl lg:text-6xl">{title}</h1>
+      <p class="mt-7 max-w-xl text-base leading-8 text-white/70 sm:text-lg">{intro}</p>
+    </div>
+    <div class="photo-frame min-h-[330px] lg:min-h-full">
+      <img
+        src={image}
+        srcset={imageSmall ? `${imageSmall} 640w, ${image} 1440w` : undefined}
+        sizes="(min-width: 1024px) 55vw, 100vw"
+        width="1440"
+        height="960"
+        loading="eager"
+        fetchpriority="high"
+        alt={alt}
+        style={`object-position:${position}`}
+      />
+    </div>
+  </div>
+</section>

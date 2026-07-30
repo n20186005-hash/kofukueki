@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { site } from '../../data/site';
+---
+<BaseLayout title="プライバシーポリシー" description="KofukuEki.comのアクセス解析、Cookie、外部リンク、免責事項に関する方針です。" noindex={false}>
+  <section class="mx-auto max-w-4xl px-5 pt-10 sm:px-8 sm:pt-14">
+    <Breadcrumbs items={[{ label: 'プライバシーポリシー' }]} />
+    <div class="mt-10 border-b border-wood/12 pb-10">
+      <p class="rule-line text-xs tracking-[0.2em] text-ticket">PRIVACY</p>
+      <h1 class="mt-6 font-serif-jp text-4xl tracking-[0.06em] text-wood-deep sm:text-5xl">プライバシーポリシー</h1>
+      <p class="mt-5 text-sm text-ink-soft">本ポリシーは、必要に応じて内容を見直します。</p>
+    </div>
+  </section>
+
+  <article class="prose-jp mx-auto max-w-4xl px-5 py-14 sm:px-8 sm:py-20">
+    <h2>1. このサイトについて</h2>
+    <p>{site.domain}（以下「当サイト」）は、幸福駅を訪れる旅行者向けの非公式観光ガイドです。幸福駅の現地運営者、帯広市、交通事業者、掲載施設とは関係ありません。</p>
+
+    <h2>2. アクセス解析</h2>
+    <p>当サイトでは、利用状況の把握と内容改善のため、Google Analytics 4（測定ID：{site.gaId}）を使用しています。Google AnalyticsはCookieなどを利用し、閲覧したページ、利用端末、参照元、おおよその地域などの情報を収集する場合があります。</p>
+    <p>当サイトは、アクセス解析によって氏名、住所、電話番号などを直接取得する機能を設けていません。収集されたデータはGoogleの規約とプライバシー方針に基づいて管理されます。ブラウザの設定でCookieを無効にすることもできます。</p>
+
+    <h2>3. Cookie</h2>
+    <p>Cookieは、サイトの利用状況を記録するためにブラウザへ保存される小さな情報です。当サイトでは主にアクセス解析のために利用します。Cookieを拒否しても、観光情報の閲覧に支障はありません。</p>
+
+    <h2>4. 外部サイトへのリンク</h2>
+    <p>交通経路、最新時刻表、写真の権利表示など、情報確認に必要な場合のみ外部サイトへのリンクを設置しています。移動先サイトでの情報提供や個人情報の取扱いについて、当サイトは責任を負いません。</p>
+
+    <h2>5. 免責事項</h2>
+    <p>掲載情報は公開資料をもとに確認し、できる限り正確に保つよう努めます。ただし、営業時間、交通、料金、積雪、イベント、施設利用条件などは予告なく変更される場合があります。旅行前および当日は、現地掲示や運営主体の最新情報を優先してください。</p>
+    <p>当サイトの情報を利用したことによって生じた損害、予定変更、交通機関への乗り遅れなどについて、当サイトは責任を負いません。</p>
+
+    <h2>6. 方針の変更</h2>
+    <p>法令、使用サービス、サイト機能の変更に応じて、本方針を改定することがあります。変更後の内容は本ページに掲載します。</p>
+
+    <h2>7. お問い合わせ</h2>
+    <p>現在、当サイトには問い合わせフォームを設けていません。写真の権利や掲載内容に明確な問題がある場合は、サイト運営者が公開する連絡手段を利用してください。</p>
+  </article>
+</BaseLayout>
