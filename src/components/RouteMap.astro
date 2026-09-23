@@ -1,37 +1,50 @@
+---
+import type { Locale } from '../i18n';
+interface Props { locale?: Locale; }
+const { locale = 'ja' } = Astro.props;
+
+const t: Record<Locale, { title: string; tag: string; start: string; story: string; main: string; taste: string; desc: string }> = {
+  ja: { title: '愛国から幸福へ', tag: '半日・車向け', start: '帯広市街', story: '愛国駅', main: '幸福駅', taste: '中札内', desc: '帯広市街から愛国駅を経て幸福駅へ。そのまま中札内の食や庭園へ足を延ばすと、物語と十勝らしさを一度に楽しめます。' },
+  zh: { title: '從愛國前往幸福', tag: '半日・適合自駕', start: '帶廣市區', story: '愛國車站', main: '幸福車站', taste: '中札內', desc: '從帶廣市區經愛國車站前往幸福車站，再延伸到位於中札內的美食與庭園，一次享受故事與十勝風情。' },
+  en: { title: 'From Aikoku to Kofuku', tag: 'Half-day · by car', start: 'Obihiro city', story: 'Aikoku Stn', main: 'Kofuku Stn', taste: 'Nakasatsunai', desc: 'From Obihiro city through Aikoku Station to Kofuku Station, then on to Nakasatsunai’s food and gardens—story and Tokachi character in one trip.' },
+  ko: { title: '아이쿠에서 행복으로', tag: '반일・차량 권장', start: '오비히로 시내', story: '아이쿠 역', main: '행복역', taste: '나카사츠나이', desc: '오비히로 시내에서 아이쿠 역을 거쳐 행복역으로, 이어서 나카사츠나이의 맛과 정원까지. 이야기와 도카치다운 풍미를 한번에 즐길 수 있습니다.' },
+};
+const d = t[locale];
+---
 <div class="relative overflow-hidden rounded-[2rem] border border-wood/10 bg-white/70 p-6 sm:p-10" data-reveal>
   <div class="absolute inset-0 opacity-40 paper-grain" aria-hidden="true"></div>
   <div class="relative">
     <div class="flex items-start justify-between gap-5">
       <div>
         <p class="text-xs tracking-[0.2em] text-ticket">MODEL ROUTE</p>
-        <h3 class="mt-2 font-serif-jp text-2xl tracking-[0.05em] text-wood-deep">愛国から幸福へ</h3>
+        <h3 class="mt-2 font-serif-jp text-2xl tracking-[0.05em] text-wood-deep">{d.title}</h3>
       </div>
-      <span class="rounded-full bg-ticket-pale px-3 py-1.5 text-xs text-wood">半日・車向け</span>
+      <span class="rounded-full bg-ticket-pale px-3 py-1.5 text-xs text-wood">{d.tag}</span>
     </div>
 
     <ol class="mt-10 grid gap-3 sm:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] sm:items-center">
       <li class="rounded-2xl border border-wood/10 bg-paper p-4">
         <span class="text-[10px] tracking-[0.18em] text-ink-soft">START</span>
-        <strong class="mt-1 block font-serif-jp text-lg">帯広市街</strong>
+        <strong class="mt-1 block font-serif-jp text-lg">{d.start}</strong>
       </li>
       <li class="hidden text-center text-ticket sm:block" aria-hidden="true">→</li>
       <li class="rounded-2xl border border-wood/10 bg-paper p-4">
         <span class="text-[10px] tracking-[0.18em] text-ink-soft">STORY</span>
-        <strong class="mt-1 block font-serif-jp text-lg">愛国駅</strong>
+        <strong class="mt-1 block font-serif-jp text-lg">{d.story}</strong>
       </li>
       <li class="hidden text-center text-ticket sm:block" aria-hidden="true">→</li>
       <li class="rounded-2xl border border-ticket/40 bg-ticket-pale p-4">
         <span class="text-[10px] tracking-[0.18em] text-ticket">MAIN</span>
-        <strong class="mt-1 block font-serif-jp text-lg">幸福駅</strong>
+        <strong class="mt-1 block font-serif-jp text-lg">{d.main}</strong>
       </li>
       <li class="hidden text-center text-ticket sm:block" aria-hidden="true">→</li>
       <li class="rounded-2xl border border-wood/10 bg-paper p-4">
         <span class="text-[10px] tracking-[0.18em] text-ink-soft">TASTE</span>
-        <strong class="mt-1 block font-serif-jp text-lg">中札内</strong>
+        <strong class="mt-1 block font-serif-jp text-lg">{d.taste}</strong>
       </li>
     </ol>
 
     <div class="mt-5 h-px w-full rail-dash text-wood/25" aria-hidden="true"></div>
-    <p class="mt-5 text-sm leading-7 text-ink-soft">帯広市街から愛国駅を経て幸福駅へ。そのまま中札内の食や庭園へ足を延ばすと、物語と十勝らしさを一度に楽しめます。</p>
+    <p class="mt-5 text-sm leading-7 text-ink-soft">{d.desc}</p>
   </div>
 </div>

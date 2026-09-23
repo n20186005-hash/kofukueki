@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { pages, ui } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+interface Props { locale: Locale; title?: string; description?: string; }
+const { locale, title, description } = Astro.props;
+const t = pages[locale].privacy;
+const ut = ui[locale];
+---
+<BaseLayout locale={locale} path="/privacy/" title={title ?? ut.footerPrivacy} description={description ?? t.hero.intro} jsonLd={undefined}>
+  <PageHero eyebrow={t.hero.eyebrow} title={t.hero.title} intro={t.hero.intro} breadcrumb={ut.footerPrivacy} />
+
+  <section class="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
+    <div class="space-y-10">
+      {t.sections.map((sec) => (
+        <div data-reveal>
+          <h2 class="font-serif-jp text-2xl text-wood-deep">{sec.title}</h2>
+          <p class="mt-4 text-sm leading-8 text-ink-soft">{sec.body}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-12"><Breadcrumbs items={[{ label: ut.footerPrivacy }]} locale={locale} /></div>
+  </section>
+</BaseLayout>

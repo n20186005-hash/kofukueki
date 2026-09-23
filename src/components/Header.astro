@@ -1,12 +1,42 @@
 ---
-import { navItems, site } from '../data/site';
+import { site } from '../data/site';
+import { ui, locales, localeMeta, localizedPath, type Locale } from '../i18n';
 
-const pathname = Astro.url.pathname;
-const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.startsWith(href);
+interface Props {
+  locale?: Locale;
+  path?: string;
+}
+const { locale = 'ja', path = '/' } = Astro.props;
+
+const navDefs: Array<{ href: string; key: keyof typeof ui.ja.nav }> = [
+  { href: '/about/', key: 'about' },
+  { href: '/guide/', key: 'guide' },
+  { href: '/access/', key: 'access' },
+  { href: '/food/', key: 'food' },
+  { href: '/faq/', key: 'faq' },
+];
+
+const nav = navDefs.map((item) => ({
+  href: localizedPath(item.href, locale),
+  label: ui[locale].nav[item.key],
+  active: path === item.href,
+}));
+
+const homeHref = localizedPath('/', locale);
+const accessHref = localizedPath('/access/', locale);
+
+// language switcher targets: same ja path in each locale
+const langLinks = locales.map((loc) => ({
+  locale: loc,
+  label: localeMeta[loc].label,
+  short: localeMeta[loc].short,
+  href: localizedPath(path, loc),
+  current: loc === locale,
+}));
 ---
 <header class="sticky top-0 z-50 border-b border-wood/10 bg-paper/92 backdrop-blur-xl">
   <div class="mx-auto flex h-[var(--header-height)] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10">
-    <a href="/" class="group flex items-center gap-3" aria-label={`${site.name} ホーム`}>
+    <a href={homeHref} class="group flex items-center gap-3" aria-label={`${site.name} ホーム`}>
       <span class="grid size-10 place-items-center rounded-full border border-ticket/45 bg-ticket-pale font-serif-jp text-lg text-wood transition group-hover:rotate-[-4deg]">福</span>
       <span class="leading-none">
         <span class="block font-serif-jp text-xl tracking-[0.16em] text-wood-deep">幸福駅</span>
@@ -15,58 +45,98 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
     </a>
 
     <nav class="hidden items-center gap-1 lg:flex" aria-label="メインナビゲーション">
-      {navItems.map((item) => (
+      {nav.map((item) => (
         <a
           href={item.href}
           class:list={[
             'rounded-full px-4 py-2 text-sm tracking-[0.04em] transition',
-            isActive(item.href)
+            item.active
               ? 'bg-ticket-pale text-wood-deep'
               : 'text-ink-soft hover:bg-white/70 hover:text-wood-deep',
           ]}
-          aria-current={isActive(item.href) ? 'page' : undefined}
+          aria-current={item.active ? 'page' : undefined}
         >
           {item.label}
         </a>
       ))}
     </nav>
 
-    <div class="hidden lg:block">
-      <a href="/access/" class="inline-flex items-center gap-2 rounded-full bg-wood-deep px-5 py-2.5 text-sm text-white transition hover:bg-wood">
-        <span>旅のアクセス</span>
+    <div class="flex items-center gap-2">
+      <details class="relative hidden lg:block" id="lang-switch">
+        <summary class="flex cursor-pointer list-none items-center gap-2 rounded-full border border-wood/15 bg-white/70 px-4 py-2 text-sm text-ink-soft transition hover:text-wood-deep">
+          <span aria-hidden="true">🌐</span>
+          <span>{localeMeta[locale].short}</span>
+          <span aria-hidden="true" class="text-xs">▾</span>
+        </summary>
+        <ul class="absolute right-0 top-[calc(100%+0.5rem)] min-w-[10rem] rounded-2xl border border-wood/10 bg-paper p-2 shadow-soft">
+          {langLinks.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                hreflang={localeMeta[l.locale].hreflang}
+                class:list={[
+                  'block rounded-xl px-4 py-2.5 text-sm transition',
+                  l.current ? 'bg-ticket-pale text-wood-deep' : 'text-ink-soft hover:bg-white/70',
+                ]}
+                aria-current={l.current ? 'true' : undefined}
+              >
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </details>
+
+      <a href={accessHref} class="hidden rounded-full bg-wood-deep px-5 py-2.5 text-sm text-white transition hover:bg-wood lg:inline-flex">
+        <span>{ui[locale].accessCta}</span>
         <span aria-hidden="true">↗</span>
       </a>
-    </div>
 
-    <button
-      id="menu-button"
-      type="button"
-      class="grid size-11 place-items-center rounded-full border border-wood/15 bg-white/70 lg:hidden"
-      aria-controls="mobile-menu"
-      aria-expanded="false"
-      aria-label="メニューを開く"
-    >
-      <span class="relative block h-4 w-5" aria-hidden="true">
-        <span class="absolute left-0 top-0 h-px w-5 bg-wood transition"></span>
-        <span class="absolute left-0 top-[7px] h-px w-5 bg-wood transition"></span>
-        <span class="absolute left-0 top-[14px] h-px w-5 bg-wood transition"></span>
-      </span>
-    </button>
+      <button
+        id="menu-button"
+        type="button"
+        class="grid size-11 place-items-center rounded-full border border-wood/15 bg-white/70 lg:hidden"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label={ui[locale].menuOpen}
+      >
+        <span class="relative block h-4 w-5" aria-hidden="true">
+          <span class="absolute left-0 top-0 h-px w-5 bg-wood transition"></span>
+          <span class="absolute left-0 top-[7px] h-px w-5 bg-wood transition"></span>
+          <span class="absolute left-0 top-[14px] h-px w-5 bg-wood transition"></span>
+        </span>
+      </button>
+    </div>
   </div>
 
   <div id="mobile-menu" class="hidden border-t border-wood/10 bg-paper px-5 pb-6 pt-3 lg:hidden">
     <nav class="mx-auto grid max-w-7xl gap-1" aria-label="モバイルナビゲーション">
-      {navItems.map((item) => (
+      {nav.map((item) => (
         <a
           href={item.href}
           class:list={[
             'flex items-center justify-between rounded-2xl px-4 py-3.5 text-base',
-            isActive(item.href) ? 'bg-ticket-pale text-wood-deep' : 'text-ink-soft',
+            item.active ? 'bg-ticket-pale text-wood-deep' : 'text-ink-soft',
           ]}
         >
           <span>{item.label}</span><span aria-hidden="true">→</span>
         </a>
       ))}
+      <div class="mt-3 flex flex-wrap gap-2 border-t border-wood/10 pt-4">
+        {langLinks.map((l) => (
+          <a
+            href={l.href}
+            hreflang={localeMeta[l.locale].hreflang}
+            class:list={[
+              'rounded-full border px-4 py-2 text-sm',
+              l.current ? 'border-ticket bg-ticket-pale text-wood-deep' : 'border-wood/15 text-ink-soft',
+            ]}
+            aria-current={l.current ? 'true' : undefined}
+          >
+            {l.label}
+          </a>
+        ))}
+      </div>
     </nav>
   </div>
 </header>
@@ -78,7 +148,7 @@ const isActive = (href: string) => href === '/' ? pathname === '/' : pathname.st
   button?.addEventListener('click', () => {
     const open = button.getAttribute('aria-expanded') === 'true';
     button.setAttribute('aria-expanded', String(!open));
-    button.setAttribute('aria-label', open ? 'メニューを開く' : 'メニューを閉じる');
+    button.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
     menu?.classList.toggle('hidden', open);
   });
 </script>

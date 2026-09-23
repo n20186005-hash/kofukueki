@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { pages, ui as uiDict } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+interface Props { locale: Locale; title?: string; description?: string; }
+const { locale, title, description } = Astro.props;
+const t = pages[locale].guide;
+const ut = uiDict[locale];
+
+type Step = { time: string; title: string; text: string };
+type Season = { label: string; title: string; text: string };
+const extra: Record<Locale, {
+  walkEyebrow: string; walkTitle: string; walkText: string; walkSteps: Step[];
+  seasonsTitle: string; seasonsText: string; seasons: Season[];
+  mannersTitle: string; mannersText: string; mannersCta: string;
+}> = {
+  ja: {
+    walkEyebrow: 'HOW TO WALK', walkTitle: '四十分から始める、幸福駅の回り方', walkText: 'コンパクトな観光地だからこそ、順番に回ると見どころが繋がります。',
+    walkSteps: [
+      { time: '40分', title: '駅舎の周りを一巡り', text: '願いの札がびっしり貼られた駅舎の内部へ。天井まで続くピンクの紙片に、思わず時間を忘れます。' },
+      { time: '20分', title: 'ホームへ下りて保存車両を', text: '板張りのホームと、朱色のキハ22を間近で。鉄道ファンでなくても、写真を撮りたくなる風景です。' },
+      { time: '10分', title: '幸福の鐘を鳴らす', text: '駅舎へ戻る小径にある鐘。大切な人との記念や、旅の節目にゆっくり音を響かせてみてください。' },
+      { time: '15分', title: '周辺を散策', text: '駅前の草地や、名前の由来を感じる農村の風景をゆっくり歩けば、40〜60分の滞在になります。' },
+    ],
+    seasonsTitle: '季節で変わる幸福駅', seasonsText: '十勝の気候は大きく動きます。訪れる時期に合わせた過ごし方を。',
+    seasons: [
+      { label: '春（4〜6月）', title: '雪解けと新緑', text: '雪が解けて線路跡が見え始め、周囲の畑が緑に染まります。天候が安定しやすい季節です。' },
+      { label: '夏（7〜8月）', title: '緑がいちばん濃い', text: '気温が上がりますが、広い空との対比が美しい季節。日差しと虫よけの準備を。' },
+      { label: '秋（9〜10月）', title: '空が高く、風が心地よい', text: '過ごしやすい気温と澄んだ空気。写真を撮るには光のコントラストが出やすい時期です。' },
+      { label: '冬（11〜3月）', title: '雪と静けさ', text: '積雪・凍結に備えて。訪問は日没前に終え、暖かい服装で。' },
+    ],
+    mannersTitle: '撮影マナー', mannersText: '願いの札は他の方の大切な気持ちです。取ったり書き込んだりしないでください。三脚や大きな荷物は係員に相談し、周辺が住宅地に近い夜間は声と照明に配慮しましょう。', mannersCta: '写真で見る',
+  },
+  zh: {
+    walkEyebrow: 'HOW TO WALK', walkTitle: '從四十分鐘開始，逛幸福車站', walkText: '正因為是緊湊的觀光地，按順序走一遍，看點才會連貫。',
+    walkSteps: [
+      { time: '40分', title: '繞車站一圈', text: '走進貼滿許願卡的地方。一路延伸到天花板的粉色紙片，讓人不自覺忘了時間。' },
+      { time: '20分', title: '下到月台看保存車輛', text: '近距離欣賞木造月台與朱紅色 KiHa 22。即使不是鐵道迷，也會想拍照的風景。' },
+      { time: '10分', title: '敲響幸福之鐘', text: '立在返回站房小徑上的鐘。在與重要之人的紀念時刻，或旅途中轉站，敲響它聽聽聲音。' },
+      { time: '15分', title: '周邊散步', text: '慢慢走過站前草地與能感受地名由來的農村風景，停留約 40–60 分鐘。' },
+    ],
+    seasonsTitle: '隨季節變化的幸福車站', seasonsText: '十勝的氣候變化很大。請依造訪季節調整玩法。',
+    seasons: [
+      { label: '春（4〜6月）', title: '融雪與新綠', text: '雪融化後可見舊路線遺跡，周圍農田染成綠色。是天候較穩定的季節。' },
+      { label: '夏（7〜8月）', title: '綠意最濃', text: '氣溫升高，但與遼闊天空的對比很美。請準備防曬與防蟲。' },
+      { label: '秋（9〜10月）', title: '天高風爽', text: '舒適的氣溫與清澈空氣。拍攝時容易出現光影對比。' },
+      { label: '冬（11〜3月）', title: '雪與靜謐', text: '請防範積雪與結冰。在日落前結束參觀，並穿著保暖衣物。' },
+    ],
+    mannersTitle: '拍攝禮儀', mannersText: '許願卡是他人珍視的心意，請勿取下或書寫。三腳架或大型行李請洽詢工作人員，夜間鄰近住宅區請留意聲音與照明。', mannersCta: '看照片',
+  },
+  en: {
+    walkEyebrow: 'HOW TO WALK', walkTitle: 'Start with forty minutes at Kofuku', walkText: 'Because it is compact, walking it in order connects the highlights.',
+    walkSteps: [
+      { time: '40 min', title: 'Circle the station house', text: 'Step into the station house covered with wish tags. The pink papers stretching to the ceiling make you forget time.' },
+      { time: '20 min', title: 'Down to the platform and cars', text: 'See the wooden platform and vermilion KiHa 22 up close—a scene worth photographing even if you’re not a rail fan.' },
+      { time: '10 min', title: 'Ring the Bell of Happiness', text: 'The bell stands along the path back to the station house. Let it sound at a milestone with someone special, or a turning point of your trip.' },
+      { time: '15 min', title: 'Stroll the surroundings', text: 'Walk the grassy front and rural scenery that hints at the place name, and your stay becomes 40–60 minutes.' },
+    ],
+    seasonsTitle: 'Kofuku across the seasons', seasonsText: 'Tokachi’s climate shifts greatly. Choose how to spend your time by season.',
+    seasons: [
+      { label: 'Spring (Apr–Jun)', title: 'Thaw and new green', text: 'Snow melts and the old rail line appears; surrounding fields turn green. Weather is often stable.' },
+      { label: 'Summer (Jul–Aug)', title: 'Greenest season', text: 'Temperatures rise, but the contrast with the wide sky is beautiful. Prepare for sun and insects.' },
+      { label: 'Autumn (Sep–Oct)', title: 'High skies, gentle wind', text: 'Comfortable temperatures and clear air—easy to get light contrast in photos.' },
+      { label: 'Winter (Nov–Mar)', title: 'Snow and stillness', text: 'Be ready for snow and ice. Finish your visit before sunset and dress warmly.' },
+    ],
+    mannersTitle: 'Photo etiquette', mannersText: 'Wish tags hold others’ feelings—don’t remove or write on them. Ask staff about tripods or large luggage, and mind noise and lighting at night near residences.', mannersCta: 'See photos',
+  },
+  ko: {
+    walkEyebrow: 'HOW TO WALK', walkTitle: '40분부터 시작하는 행복역 둘러보기', walkText: '콤팩트한 관광지라 순서대로 돌면 볼거리가 이어집니다.',
+    walkSteps: [
+      { time: '40분', title: '역사 둘러보기', text: '소망 카드가 빼곡히 붙은 역사 안으로. 천장까지 이어진 분홍 종이에 시간 가는 줄 모릅니다.' },
+      { time: '20분', title: '승강장으로 내려가 보존 차량 보기', text: '목조 승강장과 주황색 키하 22를 가까이서. 철도 팬이 아니어도 사진을 찍고 싶어지는 풍경입니다.' },
+      { time: '10분', title: '행복의 종 울리기', text: '역사로 돌아가는 길의 종. 소중한 이와의 기념이나 여정의 변곡점에 천천히 울려보세요.' },
+      { time: '15분', title: '주변 산책', text: '역 앞 초원과 지명의 유래를 느끼는 농촌 풍경을 천천히 걷고 나면 40–60분 머무름이 됩니다.' },
+    ],
+    seasonsTitle: '계절마다 다른 행복역', seasonsText: '도카치의 기후는 크게 움직입니다. 방문 계절에 맞춰 즐겨보세요.',
+    seasons: [
+      { label: '봄（4〜6월）', title: '눈 녹음과 신록', text: '눈이 녹아 옛 선로가 보이기 시작하고 주변 밭이 초록으로 물듭니다. 날씨가 안정되기 쉬운 계절입니다.' },
+      { label: '여름（7〜8월）', title: '가장 짙은 녹음', text: '기온이 오르지만 넓은 하늘과의 대비가 아름답습니다. 햇빛과 벌레 대비를 하세요.' },
+      { label: '가을（9〜10월）', title: '높은 하늘, 산뜻한 바람', text: '쾌적한 기온과 맑은 공기. 사진에 빛 대비가 잘 나오는 시기입니다.' },
+      { label: '겨울（11〜3월）', title: '눈과 고요함', text: '적설·결빙에 대비하세요. 일몰 전 방문을 마치고 따뜻하게 입으세요.' },
+    ],
+    mannersTitle: '촬영 예절', mannersText: '소망 카드는 다른 분의 소중한 마음입니다. 가지거나 쓰지 마세요. 삼각대나 큰 짐은 안내에 문의하고, 밤엔 주택가와 가까우니 소음과 조명에 유의하세요.', mannersCta: '사진 보기',
+  },
+};
+const ge = extra[locale];
+const photosHref = locale === 'ja' ? '/photos/' : `/${locale}/photos/`;
+---
+<BaseLayout locale={locale} path="/guide/" title={title ?? ut.nav.guide} description={description ?? t.hero.intro} image={t.hero.image} jsonLd={undefined}>
+  <PageHero eyebrow={t.hero.eyebrow} title={t.hero.title} intro={t.hero.intro} image={t.hero.image} imageSmall={t.hero.imageSmall} alt={t.hero.alt} breadcrumb={ut.nav.guide} />
+
+  <section class="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
+    <SectionHeading eyebrow={ge.walkEyebrow} title={ge.walkTitle} text={ge.walkText} />
+    <ol class="mt-12 grid gap-6 md:grid-cols-2">
+      {ge.walkSteps.map((step, i) => (
+        <li class="rounded-[1.7rem] border border-wood/10 bg-white/65 p-7" data-reveal>
+          <div class="flex items-baseline justify-between">
+            <span class="font-serif-jp text-3xl text-ticket">{String(i + 1).padStart(2, '0')}</span>
+            <span class="text-xs tracking-[0.16em] text-ink-soft">{step.time}</span>
+          </div>
+          <h3 class="mt-4 font-serif-jp text-xl text-wood-deep">{step.title}</h3>
+          <p class="mt-3 text-sm leading-7 text-ink-soft">{step.text}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="bg-paper-deep/55 py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+      <SectionHeading eyebrow="HIGHLIGHTS" title="幸福駅の三つの風景" />
+      <div class="mt-14 space-y-16 sm:space-y-20">
+        {t.blocks.map((block, i) => (
+          <article class:list={['grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-16', i % 2 === 1 && 'lg:[&>div:first-child]:order-2']} data-reveal>
+            <div class="rounded-[1.6rem] bg-wood-deep p-8 sm:p-12">
+              <p class="font-serif-jp text-6xl text-ticket/55">{block.number}</p>
+              <h3 class="mt-4 font-serif-jp text-3xl leading-relaxed text-white">{block.title}</h3>
+              <p class="mt-5 text-base leading-8 text-white/75">{block.text}</p>
+            </div>
+            <div class="max-w-lg">
+              <p class="text-sm leading-7 text-ink-soft">{locale === 'ja' ? '駅舎に残された言葉、鉄道の時間、旅の節目を告げる鐘。急がずに歩くと、場所の表情が少しずつ変わります。' : (locale === 'zh' ? '留在站房的語句、鐵道的時光，以及宣告旅途中轉站的鐘。放慢腳步，風景會慢慢改變。' : (locale === 'en' ? 'Words left on the station house, the time of the railway, and a bell marking a turning point—walk slowly and the place reveals itself.' : '역사에 남은 말들, 철도의 시간, 여정의 변곡점을 알리는 종. 천천히 걸으면 풍경이 조금씩 변합니다.'))}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32 lg:px-10">
+    <SectionHeading eyebrow="SEASONS" title={ge.seasonsTitle} text={ge.seasonsText} />
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {ge.seasons.map((season) => (
+        <div class="rounded-[1.6rem] border border-wood/10 bg-white/65 p-6" data-reveal>
+          <p class="text-xs tracking-[0.16em] text-ticket">{season.label}</p>
+          <h3 class="mt-3 font-serif-jp text-xl text-wood-deep">{season.title}</h3>
+          <p class="mt-3 text-sm leading-7 text-ink-soft">{season.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-paper-deep/55 py-24 sm:py-32">
+    <div class="mx-auto max-w-3xl px-5 sm:px-8 lg:px-10">
+      <div class="rounded-[2rem] border border-ticket/30 bg-ticket-pale p-8 sm:p-10" data-reveal>
+        <p class="text-xs tracking-[0.2em] text-ticket">MANNERS</p>
+        <h2 class="mt-3 font-serif-jp text-2xl text-wood-deep">{ge.mannersTitle}</h2>
+        <p class="mt-4 text-base leading-8 text-ink-soft">{ge.mannersText}</p>
+        <a href={photosHref} class="mt-6 inline-flex items-center gap-3 text-sm text-wood hover:text-ticket">{ge.mannersCta} <span>→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 pb-12 sm:px-8 lg:px-10">
+    <Breadcrumbs items={[{ label: ut.nav.guide }]} locale={locale} />
+  </section>
+</BaseLayout>

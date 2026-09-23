@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { pages, foodSpots, ui as uiDict } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+interface Props { locale: Locale; title?: string; description?: string; }
+const { locale, title, description } = Astro.props;
+const t = pages[locale].food;
+const ut = uiDict[locale];
+const spots = foodSpots[locale];
+
+type Card = { label: string; title: string; text: string };
+type Tip = { title: string; text: string };
+const extra: Record<Locale, {
+  chooseEyebrow: string; chooseTitle: string; chooseText: string; chooseCards: Card[];
+  goodEyebrow: string; goodTitle: string; goodText: string; tips: Tip[];
+  editorialTitle: string; editorialText: string; spotsTitle: string;
+}> = {
+  ja: {
+    chooseEyebrow: 'WHERE TO STOP', chooseTitle: 'どの停留所で降りる？', chooseText: '滞在の起点によって、立ち寄りやすい場所が変わります。',
+    chooseCards: [
+      { label: '駅構内', title: 'KOFUKU BASE', text: '駅を見学したあとに立ち寄りやすい構内の休憩拠点。ソフトクリームや軽食、記念品を探すのに便利です。' },
+      { label: '中札内方面', title: '農家レストラン', text: '自家製野菜を中心とした家庭料理が楽しめる。幸福駅から足を延ばして半日コースに。' },
+      { label: '空港周辺', title: '到着・出発の食事', text: 'フライトの前後に食事を済ませたいとき。短時間で組みやすい選択肢です。' },
+    ],
+    goodEyebrow: 'GOOD TO KNOW', goodTitle: '幸福駅を楽しむために', goodText: '周辺は農村地域です。いくつかのポイントを押さえておくと、計画がスムーズです。',
+    tips: [
+      { title: '営業は季節変動', text: '売店や軽食は冬季に短くなる傾向があります。現地の案内を優先してください。' },
+      { title: 'バスは本数が限られる', text: '路線バスで巡る場合は往復の時刻をあらかじめ決めてください。' },
+      { title: '周辺は農村', text: 'コンビニや大型店は帯広市街や中札内に。ガソリンやトイレは事前確保を。' },
+      { title: '予約の有無', text: '人気店は予約制の場合があります。公式情報をご確認ください。' },
+    ],
+    editorialTitle: '編集部のお断り', editorialText: 'このページは個別の店舗を推奨・優遇するものではありません。掲載は「駅からの距離・移動のしやすさ」を基準にした例示です。最新の営業状況は各店舗へお問い合わせください。',
+    spotsTitle: '幸福駅周辺のおすすめ',
+  },
+  zh: {
+    chooseEyebrow: 'WHERE TO STOP', chooseTitle: '在哪個停靠點下車？', chooseText: '依據停留的起點不同，便於順路造訪的地點也會改變。',
+    chooseCards: [
+      { label: '站區內', title: 'KOFUKU BASE', text: '參觀車站後順路可達的站內休息站。方便享用霜淇淋、輕食，挑選紀念品。' },
+      { label: '中札內方向', title: '農家餐廳', text: '可享用以自種蔬菜為主的家常菜。從幸福車站延伸，安排半日行程。' },
+      { label: '機場周邊', title: '抵達・出發的餐食', text: '想在航班前後用餐時。容易在短時間內安排。' },
+    ],
+    goodEyebrow: 'GOOD TO KNOW', goodTitle: '享受幸福車站的小提醒', goodText: '周邊是農村地區。掌握幾個重點，行程會更順暢。',
+    tips: [
+      { title: '營業隨季節變動', text: '商店與輕食冬季往往較短。請以現場公告為準。' },
+      { title: '巴士班次有限', text: '搭乘路線巴士遊覽時，請先決定去程與回程時刻。' },
+      { title: '周邊為農村', text: '便利商店與大型店在帶廣市區或中札內。油料與洗手間請提前安排。' },
+      { title: '是否需預約', text: '人氣店家可能採預約制。請確認官方資訊。' },
+    ],
+    editorialTitle: '編輯部聲明', editorialText: '本頁面並非推薦或優待特定店家。刊載是以「距離車站的遠近・移動便利性」為基準的舉例。最新營業狀況請洽詢各店家。',
+    spotsTitle: '幸福車站周邊推薦',
+  },
+  en: {
+    chooseEyebrow: 'WHERE TO STOP', chooseTitle: 'Where to plan your stop?', chooseText: 'Depending on your starting point, some stops are easier to add.',
+    chooseCards: [
+      { label: 'On the grounds', title: 'KOFUKU BASE', text: 'A rest stop right on the station grounds, easy after touring. Good for soft serve, snacks, and souvenirs.' },
+      { label: 'Toward Nakasatsunai', title: 'Farm restaurants', text: 'Home-style dishes centered on homegrown vegetables. Extend from Kofuku for a half-day route.' },
+      { label: 'Near the airport', title: 'Meals on arrival/departure', text: 'When you want a meal just before or after a flight—easy to fit into a short window.' },
+    ],
+    goodEyebrow: 'GOOD TO KNOW', goodTitle: 'To enjoy Kofuku Station', goodText: 'The area is rural. A few points make planning smoother.',
+    tips: [
+      { title: 'Hours vary by season', text: 'Shops and snacks tend to be shorter in winter. Follow on-site guidance.' },
+      { title: 'Buses are limited', text: 'If touring by local bus, decide both outbound and return times in advance.' },
+      { title: 'Rural surroundings', text: 'Convenience stores and large shops are in Obihiro city or Nakasatsunai. Secure fuel and restrooms ahead.' },
+      { title: 'Reservations', text: 'Popular spots may require reservations. Check official information.' },
+    ],
+    editorialTitle: 'Editorial note', editorialText: 'This page does not recommend or favor any particular shop. Listings are examples based on distance from the station and ease of travel. Please contact each venue for the latest hours.',
+    spotsTitle: 'Recommended around Kofuku Station',
+  },
+  ko: {
+    chooseEyebrow: 'WHERE TO STOP', chooseTitle: '어디서 내릴까요?', chooseText: '머무름의 출발점에 따라 들르기 쉬운 곳이 달라집니다.',
+    chooseCards: [
+      { label: '역 구내', title: 'KOFUKU BASE', text: '역을 둘러본 뒤 들르기 쉬운 구내 휴게 공간. 소프트크림·간식·기념품 찾기에 좋습니다.' },
+      { label: '나카사츠나이 방면', title: '농가 레스토랑', text: '자신이 기른 채소 중심의 가정식을 즐길 수 있습니다. 행복역에서 반일 코스로.' },
+      { label: '공항 주변', title: '도착·출발 식사', text: '항공편 전후에 식사하고 싶을 때. 짧은 시간에 넣기 쉬운 선택입니다.' },
+    ],
+    goodEyebrow: 'GOOD TO KNOW', goodTitle: '행복역을 즐기기 위해', goodText: '주변은 농촌 지역입니다. 몇 가지 포인트를 챙기면 계획이 수월합니다.',
+    tips: [
+      { title: '영업은 계절 변동', text: '매점과 간식은 겨울에 짧아지는 경향이 있습니다. 현장 안내를 우선하세요.' },
+      { title: '버스 운행 제한', text: '노선 버스로 돌 때는 왕복 시각을 미리 정하세요.' },
+      { title: '농촌 주변', text: '편의점과 대형 매장은 오비히로 시내나 나카사츠나이에 있습니다. 유류와 화장실은 미리 확보하세요.' },
+      { title: '예약 여부', text: '인기 점포는 예약제일 수 있습니다. 공식 정보를 확인하세요.' },
+    ],
+    editorialTitle: '편집부 말씀', editorialText: '이 페이지는 특정 점포를 추천하거나 우대하지 않습니다. 게재는 「역에서의 거리·이동 편의」를 기준으로 한 예시입니다. 최신 영업 상황은 각 점포에 문의하세요.',
+    spotsTitle: '행복역 주변 추천',
+  },
+};
+const fe = extra[locale];
+const accessHref = locale === 'ja' ? '/access/' : `/${locale}/access/`;
+---
+<BaseLayout locale={locale} path="/food/" title={title ?? ut.nav.food} description={description ?? t.hero.intro} image={t.hero.image} jsonLd={undefined}>
+  <PageHero eyebrow={t.hero.eyebrow} title={t.hero.title} intro={t.hero.intro} image={t.hero.image} imageSmall={t.hero.imageSmall} alt={t.hero.alt} breadcrumb={ut.nav.food} />
+
+  <section class="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
+    <p class="text-base leading-8 text-ink-soft sm:text-lg">{t.intro}</p>
+  </section>
+
+  <section class="bg-paper-deep/55 py-24 sm:py-32">
+    <div class="mx-auto max-w-6xl px-5 sm:px-8 lg:px-10">
+      <SectionHeading eyebrow="FOOD MAP" title={fe.spotsTitle} align="center" />
+      <div class="mt-12 grid gap-5 md:grid-cols-2">
+        {spots.map((spot) => (
+          <article class="rounded-[1.7rem] border border-wood/10 bg-white/65 p-7" data-reveal>
+            <h3 class="font-serif-jp text-2xl text-wood-deep">{spot.name}</h3>
+            <div class="mt-4 flex flex-wrap gap-2 text-xs">
+              <span class="rounded-full bg-ticket-pale px-3 py-1 text-wood">{spot.area}</span>
+              <span class="rounded-full border border-wood/15 px-3 py-1 text-ink-soft">{spot.travel}</span>
+              <span class="rounded-full border border-wood/15 px-3 py-1 text-ink-soft">{spot.type}</span>
+            </div>
+            <p class="mt-4 text-sm leading-7 text-ink-soft">{spot.description}</p>
+            <p class="mt-4 border-t border-wood/10 pt-4 text-xs leading-6 text-ink-soft/65">{spot.note}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32 lg:px-10">
+    <SectionHeading eyebrow={fe.chooseEyebrow} title={fe.chooseTitle} text={fe.chooseText} />
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {fe.chooseCards.map((card) => (
+        <div class="rounded-[1.6rem] border border-wood/10 bg-white/65 p-7" data-reveal>
+          <p class="text-xs tracking-[0.16em] text-ticket">{card.label}</p>
+          <h3 class="mt-3 font-serif-jp text-xl text-wood-deep">{card.title}</h3>
+          <p class="mt-3 text-sm leading-7 text-ink-soft">{card.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-paper-deep/55 py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+      <SectionHeading eyebrow={fe.goodEyebrow} title={fe.goodTitle} text={fe.goodText} />
+      <div class="mt-12 grid gap-5 sm:grid-cols-2">
+        {fe.tips.map((tip) => (
+          <div class="rounded-[1.6rem] border border-wood/10 bg-white/65 p-7" data-reveal>
+            <h3 class="font-serif-jp text-xl text-wood-deep">{tip.title}</h3>
+            <p class="mt-3 text-sm leading-7 text-ink-soft">{tip.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-5 py-24 sm:px-8 sm:py-32 lg:px-10">
+    <div class="rounded-[2rem] border border-wood/15 bg-paper p-8 sm:p-10" data-reveal>
+      <h2 class="font-serif-jp text-xl text-wood-deep">{fe.editorialTitle}</h2>
+      <p class="mt-4 text-sm leading-7 text-ink-soft">{fe.editorialText}</p>
+    </div>
+    <div class="mt-10 flex flex-wrap items-center justify-between gap-4">
+      <Breadcrumbs items={[{ label: ut.nav.food }]} locale={locale} />
+      <a href={accessHref} class="inline-flex items-center gap-2 text-sm text-wood hover:text-ticket">↗ {ut.nav.access}</a>
+    </div>
+  </section>
+</BaseLayout>

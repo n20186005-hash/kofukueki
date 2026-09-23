@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { pages, ui } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+interface Props { locale: Locale; title?: string; description?: string; }
+const { locale, title, description } = Astro.props;
+const t = pages[locale].photos;
+const ut = ui[locale];
+
+type Photo = { src: string; thumb: string; ratio: string; title: string; alt: string };
+const photos: Record<Locale, Photo[]> = {
+  ja: [
+    { src: '/images/interior-1440.webp', thumb: '/images/interior-480.webp', ratio: '3 / 2', title: '願いの札が天井まで', alt: '淡い桃色の願い札で覆われた幸福駅の内部' },
+    { src: '/images/train-1440.webp', thumb: '/images/train-640.webp', ratio: '3 / 2', title: 'ホームに並ぶキハ22', alt: '幸福駅に保存されている朱色のディーゼルカー' },
+    { src: '/images/bell-1440.webp', thumb: '/images/bell-640.webp', ratio: '3 / 2', title: '幸福の鐘', alt: '幸せの鐘と駅舎へ続く小径' },
+    { src: '/images/station-1440.webp', thumb: '/images/station-960.webp', ratio: '3 / 2', title: '木造の駅舎', alt: '正面から見た幸福駅の木造駅舎' },
+    { src: '/images/hero-1920.webp', thumb: '/images/hero-960.webp', ratio: '16 / 9', title: '青空と駅', alt: '広い空の下に建つ幸福駅' },
+  ],
+  zh: [
+    { src: '/images/interior-1440.webp', thumb: '/images/interior-480.webp', ratio: '3 / 2', title: '許願卡延伸到天花板', alt: '內部被淡粉色許願卡覆蓋的幸福車站' },
+    { src: '/images/train-1440.webp', thumb: '/images/train-640.webp', ratio: '3 / 2', title: '月台旁的 KiHa 22', alt: '幸福車站保存的朱紅色柴油列車' },
+    { src: '/images/bell-1440.webp', thumb: '/images/bell-640.webp', ratio: '3 / 2', title: '幸福之鐘', alt: '幸福之鐘與通往站房的小路' },
+    { src: '/images/station-1440.webp', thumb: '/images/station-960.webp', ratio: '3 / 2', title: '木造站房', alt: '從正面看的幸福車站木造站房' },
+    { src: '/images/hero-1920.webp', thumb: '/images/hero-960.webp', ratio: '16 / 9', title: '藍天與車站', alt: '遼闊藍天下矗立的幸福車站' },
+  ],
+  en: [
+    { src: '/images/interior-1440.webp', thumb: '/images/interior-480.webp', ratio: '3 / 2', title: 'Wish tags to the ceiling', alt: 'Inside Kofuku Station, covered with pale-pink wish tags' },
+    { src: '/images/train-1440.webp', thumb: '/images/train-640.webp', ratio: '3 / 2', title: 'KiHa 22 by the platform', alt: 'The vermilion diesel car preserved at Kofuku Station' },
+    { src: '/images/bell-1440.webp', thumb: '/images/bell-640.webp', ratio: '3 / 2', title: 'The Bell of Happiness', alt: 'The Bell of Happiness and the path to the station house' },
+    { src: '/images/station-1440.webp', thumb: '/images/station-960.webp', ratio: '3 / 2', title: 'The wooden station house', alt: 'The wooden station house of Kofuku Station seen from the front' },
+    { src: '/images/hero-1920.webp', thumb: '/images/hero-960.webp', ratio: '16 / 9', title: 'Station under blue sky', alt: 'Kofuku Station under a wide sky' },
+  ],
+  ko: [
+    { src: '/images/interior-1440.webp', thumb: '/images/interior-480.webp', ratio: '3 / 2', title: '천장까지 소망 카드', alt: '분홍색 소망 카드로 덮인 행복역 내부' },
+    { src: '/images/train-1440.webp', thumb: '/images/train-640.webp', ratio: '3 / 2', title: '승강장의 키하 22', alt: '행복역에 보존된 주황색 디젤 카' },
+    { src: '/images/bell-1440.webp', thumb: '/images/bell-640.webp', ratio: '3 / 2', title: '행복의 종', alt: '행복의 종과 역사로 이어지는 길' },
+    { src: '/images/station-1440.webp', thumb: '/images/station-960.webp', ratio: '3 / 2', title: '목조 역사', alt: '정면에서 본 행복역의 목조 역사' },
+    { src: '/images/hero-1920.webp', thumb: '/images/hero-960.webp', ratio: '16 / 9', title: '푸른 하늘과 역', alt: '넓은 하늘 아래 선 행복역' },
+  ],
+};
+
+const manners: Record<Locale, { title: string; text: string }[]> = {
+  ja: [
+    { title: '願いを壊さない', text: '願い札は他の方の大切な想いです。取ったり、落書きしたりしないでください。' },
+    { title: '係員の誘導に従う', text: '三脚や大型カメラは混雑時にお断りする場合があります。事前にご相談ください。' },
+    { title: '日没後は静かに', text: '夜間は周辺が住宅地に近いです。照明や大きな音に配慮してください。' },
+  ],
+  zh: [
+    { title: '不破壞他人的願望', text: '許願卡是其他旅客珍視的心意，請勿取下或塗寫。' },
+    { title: '配合工作人員引導', text: '尖峰時段可能婉拒三腳架或大型相機，請事先洽詢。' },
+    { title: '日落后請安靜', text: '夜間周邊鄰近住宅區，請留意照明與音量。' },
+  ],
+  en: [
+    { title: 'Don’t disturb wishes', text: 'Wish tags hold others’ feelings—please don’t take or write on them.' },
+    { title: 'Follow staff guidance', text: 'Tripods and large cameras may be restricted when crowded; please ask first.' },
+    { title: 'Be quiet after sunset', text: 'The area is near residences at night; mind lighting and noise.' },
+  ],
+  ko: [
+    { title: '소망을 훼손하지 마세요', text: '소망 카드는 다른 분의 소중한 마음입니다. 가지거나 낙서하지 마세요.' },
+    { title: '안내에 따르세요', text: '삼각대나 대형 카메라는 혼잡 시 제한될 수 있으니 미리 문의하세요.' },
+    { title: '일몰 후엔 조용히', text: '야간에는 주변에 주택가가 가깝습니다. 조명과 소음에 유의하세요.' },
+  ],
+};
+---
+<BaseLayout locale={locale} path="/photos/" title={title ?? ut.footerPhotos} description={description ?? t.hero.intro} jsonLd={undefined}>
+  <PageHero eyebrow={t.hero.eyebrow} title={t.hero.title} intro={t.hero.intro} breadcrumb={ut.footerPhotos} />
+
+  <section class="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {photos[locale].map((photo) => (
+        <figure class="photo-frame overflow-hidden rounded-[1.6rem]" data-reveal>
+          <img src={photo.src} srcset={`${photo.thumb} 480w, ${photo.src} 1440w`} sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw" width="1440" height="960" loading="lazy" alt={photo.alt} style={`aspect-ratio:${photo.ratio}`} />
+          <figcaption class="px-1 pt-3 text-sm text-ink-soft">{photo.title}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-paper-deep/55 py-20 sm:py-24">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-10">
+      <p class="text-xs tracking-[0.2em] text-ticket">PHOTO MANNERS</p>
+      <h2 class="mt-3 font-serif-jp text-3xl text-wood-deep">{locale === 'ja' ? '写真を撮るときの心得' : (locale === 'zh' ? '拍照時的注意事項' : (locale === 'en' ? 'When taking photos' : '사진 촬영 시 유의점'))}</h2>
+      <div class="mt-10 grid gap-5 sm:grid-cols-3">
+        {manners[locale].map((item) => (
+          <div class="rounded-[1.6rem] border border-wood/10 bg-white/65 p-6" data-reveal>
+            <h3 class="font-serif-jp text-xl text-wood-deep">{item.title}</h3>
+            <p class="mt-3 text-sm leading-7 text-ink-soft">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 py-12 sm:px-8 lg:px-10">
+    <Breadcrumbs items={[{ label: ut.footerPhotos }]} locale={locale} />
+  </section>
+</BaseLayout>

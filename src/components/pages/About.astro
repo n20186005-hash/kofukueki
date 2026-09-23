@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { pages, timeline, ui } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+interface Props { locale: Locale; title?: string; description?: string; }
+const { locale, title, description } = Astro.props;
+const t = pages[locale].about;
+const ut = ui[locale];
+const tl = timeline[locale];
+
+const extra: Record<Locale, {
+  asideTitle: string;
+  historyEyebrow: string; historyTitle: string; historyText: string; historyCenterTitle: string;
+  ticketTitle: string; ticketText: string[]; ticketNote: string;
+  noteTitle: string; noteText: string;
+}> = {
+  ja: {
+    asideTitle: '駅はなくなっても、「幸福ゆき」は終わらなかった。',
+    historyEyebrow: 'STORY', historyTitle: '地名から、願いの場所へ。', historyText: '小さな駅名が、どうして全国の人を引き寄せるようになったのか。その道のりを三つの視点からたどります。',
+    historyCenterTitle: '幸福駅の歩み',
+    ticketTitle: '切符が運んだのは、行き先よりも願いでした。',
+    ticketText: [
+      '「愛国から幸福へ」という記念切符は、単なる商品ではありませんでした。恋人が二人で訪れ、家族が未来を願い、旅人が自分自身に告げる。切符は、乗る人の気持ちをのせて駅まで届ける役割を果たしました。',
+      '今も駅には、願いを書いた札や手紙がびっしりと貼られています。紙面の向こうに、無数の人生の節目が重なっているのです。',
+    ],
+    ticketNote: '記念切符のデザインや販売場所は時期によって異なります。最新情報は現地の案内をご確認ください。',
+    noteTitle: '「遺跡」ではなく、いまも続く場所。',
+    noteText: '幸福駅は、過去の遺物として保存されているわけではありません。地元の人々の手で整備され、今も来訪者を迎え続けている、生きた観光地です。',
+  },
+  zh: {
+    asideTitle: '車站不在了，但「前往幸福」沒有結束。',
+    historyEyebrow: 'STORY', historyTitle: '從地名，到許願之地。', historyText: '一個小小的站名，為什麼能吸引全國的人們？我們從三個角度追溯這段歷程。',
+    historyCenterTitle: '幸福車站的足跡',
+    ticketTitle: '車票承載的，是比目的地更重要的心願。',
+    ticketText: [
+      '「從愛國前往幸福」的紀念車票，不只是商品。情侶一同造訪、家人寄望未來、旅人對自己說話。車票載著乘客的心情，送達車站。',
+      '至今站內仍貼滿寫著願望的卡片與信件。紙片背後，重疊著無數人生的轉折時刻。',
+    ],
+    ticketNote: '紀念車票的設計與販售地點會因時期而異。最新資訊請參考現場公告。',
+    noteTitle: '不是「遺跡」，而是持續至今的場所。',
+    noteText: '幸福車站並非作為過去遺物被保存。它在當地居民手中整修，至今持續迎接訪客，是一處活著的觀光地。',
+  },
+  en: {
+    asideTitle: 'The station is gone, but "to happiness" never ended.',
+    historyEyebrow: 'STORY', historyTitle: 'From a place name to a place of wishes.', historyText: 'How did a tiny station name come to draw people from across the country? We trace that journey from three angles.',
+    historyCenterTitle: 'The history of Kofuku Station',
+    ticketTitle: 'What the tickets carried was the wish, more than the destination.',
+    ticketText: [
+      'The "From Aikoku to Kofuku" commemorative ticket was more than a product. Couples visited together, families wished for the future, travelers spoke to themselves. The ticket carried each rider’s feelings to the station.',
+      'To this day, the station is thickly covered with tags and letters holding wishes. Behind each paper, countless life milestones overlap.',
+    ],
+    ticketNote: 'The design and sales locations of commemorative tickets vary by period. Please check on-site notices for the latest information.',
+    noteTitle: 'Not a ruin, but a place that continues.',
+    noteText: 'Kofuku Station is not preserved as a relic of the past. Maintained by local people, it still welcomes visitors—a living sight.',
+  },
+  ko: {
+    asideTitle: '역은 사라져도, 「행복으로」는 끝나지 않았습니다.',
+    historyEyebrow: 'STORY', historyTitle: '지명에서, 소망의 장소로.', historyText: '작은 역 이름이 어떻게 전국의 사람을 끌어들이게 되었을까요? 그 길을 세 가지 관점에서 따라가 봅니다.',
+    historyCenterTitle: '행복역의 발자취',
+    ticketTitle: '승차권이 실은 것은, 목적지보다 소망이었습니다.',
+    ticketText: [
+      '「아이쿠에서 행복으로」 기념 승차권은 단순한 상품이 아니었습니다. 연인이 함께 찾고, 가족이 미래를 빌고, 여행자가 스스로에게 말을 겁니다. 승차권은 탄 사람의 마음을 실어 역까지 전했습니다.',
+      '지금도 역에는 소망을 적은 카드와 편지가 빼곡히 붙어 있습니다. 종이 너머로 수많은 인생의 변곡점이 겹쳐 있습니다.',
+    ],
+    ticketNote: '기념 승차권의 디자인과 판매 장소는 시기에 따라 다릅니다. 최신 정보는 현장 안내를 확인하세요.',
+    noteTitle: '「유적」이 아니라, 지금도 이어지는 장소.',
+    noteText: '행복역은 과거의 유물로 보존된 것이 아닙니다. 지역 주민의 손으로 정비되어 지금도 방문자를 맞이하는 살아있는 관광지입니다.',
+  },
+};
+const e = extra[locale];
+---
+<BaseLayout locale={locale} path="/about/" title={title ?? ut.nav.about} description={description ?? t.hero.intro} image={t.hero.image} jsonLd={undefined}>
+  <PageHero eyebrow={t.hero.eyebrow} title={t.hero.title} intro={t.hero.intro} image={t.hero.image} imageSmall={t.hero.imageSmall} alt={t.hero.alt} breadcrumb={ut.nav.about} />
+
+  <section class="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
+    <p class="border-l-2 border-ticket pl-5 font-serif-jp text-2xl leading-relaxed text-wood-deep sm:text-3xl" data-reveal>{e.asideTitle}</p>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 pb-24 sm:px-8 sm:pb-32 lg:px-10">
+    <SectionHeading eyebrow={e.historyEyebrow} title={e.historyTitle} text={e.historyText} />
+    <div class="mt-12 grid gap-10 lg:grid-cols-3">
+      {t.sections.map((sec) => (
+        <article class="rounded-[1.7rem] border border-wood/10 bg-white/65 p-7" data-reveal>
+          <p class="text-xs tracking-[0.18em] text-ticket">{sec.eyebrow}</p>
+
+          <h2 class="mt-4 font-serif-jp text-2xl leading-relaxed text-wood-deep">{sec.title}</h2>
+          <p class="mt-4 text-sm leading-8 text-ink-soft">{sec.body}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="bg-paper-deep/55 py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+      <SectionHeading eyebrow="HISTORY" title={e.historyCenterTitle} align="center" />
+      <div class="relative mx-auto mt-14 max-w-3xl pl-5 sm:pl-12">
+        <div class="absolute bottom-0 left-[4px] top-2 w-px bg-ticket/45 sm:left-[20px]"></div>
+        <ol class="space-y-12">
+          {tl.map((item) => (
+            <li class="relative grid gap-3 sm:grid-cols-[110px_1fr] sm:gap-8" data-reveal>
+              <span class="absolute -left-[20px] top-1.5 size-3 rounded-full border-[3px] border-paper bg-ticket sm:-left-[38px]"></span>
+              <div>
+                <p class="font-serif-jp text-2xl text-ticket">{item.year}</p>
+                <p class="mt-1 text-[10px] tracking-[0.16em] text-ink-soft/65">{item.era}</p>
+              </div>
+              <div>
+                <h3 class="font-serif-jp text-xl tracking-[0.04em] text-wood-deep">{item.title}</h3>
+                <p class="mt-3 text-sm leading-7 text-ink-soft sm:text-base sm:leading-8">{item.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-5 py-24 sm:px-8 sm:py-32 lg:px-10">
+    <div class="ticket-edge rounded-[2rem] px-8 py-14 sm:px-12" data-reveal>
+      <p class="text-xs tracking-[0.2em] text-ticket">TICKET</p>
+      <h2 class="mt-4 font-serif-jp text-3xl leading-[1.6] text-wood-deep">{e.ticketTitle}</h2>
+      <div class="mt-6 space-y-5 text-sm leading-8 text-ink-soft">
+        {e.ticketText.map((p) => <p>{p}</p>)}
+      </div>
+      <p class="mt-7 border-t border-wood/10 pt-5 text-xs leading-6 text-ink-soft/65">{e.ticketNote}</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 pb-24 sm:px-8 sm:pb-32 lg:px-10">
+    <div class="rounded-[2rem] border border-ticket/30 bg-ticket-pale p-8 sm:p-10" data-reveal>
+      <h2 class="font-serif-jp text-2xl text-wood-deep">{e.noteTitle}</h2>
+      <p class="mt-4 text-base leading-8 text-ink-soft">{e.noteText}</p>
+    </div>
+    <div class="mt-10"><Breadcrumbs items={[{ label: ut.nav.about }]} locale={locale} /></div>
+  </section>
+</BaseLayout>

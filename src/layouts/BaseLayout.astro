@@ -2,9 +2,13 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../data/site';
+import { ui, localeMeta, localizedPath, getHreflangAlternates, type Locale } from '../i18n';
 import '../styles/global.css';
 
 interface Props {
+  locale?: Locale;
+  /** ja-equivalent path used to build canonical + hreflang alternates (e.g. "/access/" or "/"). */
+  path?: string;
   title?: string;
   description?: string;
   image?: string;
@@ -13,6 +17,8 @@ interface Props {
 }
 
 const {
+  locale = 'ja',
+  path = '/',
   title = site.fullName,
   description = site.description,
   image = '/images/og-kofuku-eki.jpg',
@@ -20,14 +26,16 @@ const {
   jsonLd,
 } = Astro.props;
 
+const meta = localeMeta[locale];
 const pageTitle = title === site.fullName ? title : `${title}｜幸福駅`;
-const canonical = new URL(Astro.url.pathname, site.url).toString();
+const canonical = new URL(localizedPath(path, locale), site.url).toString();
 const imageUrl = new URL(image, site.url).toString();
 const gaId = site.gaId;
 const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const alternates = getHreflangAlternates(path, site.url);
 ---
 <!doctype html>
-<html lang="ja">
+<html lang={meta.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -41,8 +49,10 @@ const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <link rel="manifest" href="/site.webmanifest" />
     {noindex && <meta name="robots" content="noindex,follow" />}
 
+    {alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:locale" content={meta.ogLocale} />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -66,12 +76,12 @@ const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     </script>
   </head>
   <body>
-    <a href="#main-content" class="fixed left-4 top-3 z-[100] -translate-y-20 rounded-full bg-wood-deep px-4 py-2 text-sm text-white transition focus:translate-y-0">本文へ移動</a>
-    <Header />
+    <a href="#main-content" class="fixed left-4 top-3 z-[100] -translate-y-20 rounded-full bg-wood-deep px-4 py-2 text-sm text-white transition focus:translate-y-0">{ui[locale].skipToContent}</a>
+    <Header locale={locale} path={path} />
     <main id="main-content">
       <slot />
     </main>
-    <Footer />
+    <Footer locale={locale} path={path} />
 
     <script>
       const targets = document.querySelectorAll<HTMLElement>('[data-reveal]');

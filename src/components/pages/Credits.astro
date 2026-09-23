@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { pages, ui } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+interface Props { locale: Locale; title?: string; description?: string; }
+const { locale, title, description } = Astro.props;
+const t = pages[locale].credits;
+const ut = ui[locale];
+
+const headers: Record<Locale, string[]> = {
+  ja: ['掲載内容', '作者', 'ライセンス', '原典'],
+  zh: ['項目', '作者', '授權', '原始出處'],
+  en: ['Content', 'Author', 'License', 'Source'],
+  ko: ['게재 내용', '저자', '라이선스', '출처'],
+};
+
+const infoConfirm: Record<Locale, { title: string; text: string }> = {
+  ja: { title: '掲載内容の確認について', text: '画像・数値は公開情報をもとに編集していますが、最新の状況とは異なる場合があります。訪問前に各公式サイトでご確認ください。' },
+  zh: { title: '關於刊載內容的確認', text: '圖像與數值依公開資訊編輯，但可能與最新狀況不同。出發前請在各官方網站確認。' },
+  en: { title: 'About the listed information', text: 'Images and figures are edited from public information and may differ from the latest status. Please confirm on each official site before visiting.' },
+  ko: { title: '게재 내용 확인에 대하여', text: '이미지와 수치는 공개 정보를 바탕으로 편집했으나 최신 상황과 다를 수 있습니다. 방문 전 각 공식 사이트에서 확인하세요.' },
+};
+
+const changeNote: Record<Locale, string> = {
+  ja: '内容は予告なく変更・削除する場合があります。',
+  zh: '內容可能未經預告而變更或刪除。',
+  en: 'Contents may change or be removed without notice.',
+  ko: '내용은 예고 없이 변경·삭제될 수 있습니다.',
+};
+
+const sources: Record<Locale, { title: string; items: string[] }> = {
+  ja: { title: '参考にした情報源', items: ['帯広市 観光・イベント情報', '十勝バス 時刻表・路線情報', '国土交通省 国土数値情報', 'Wikipedia（幸福駅）'] },
+  zh: { title: '參考資訊來源', items: ['帶廣市 觀光・活動資訊', '十勝巴士 時刻表・路線資訊', '國土交通省 國土數值資訊', 'Wikipedia（幸福駅）'] },
+  en: { title: 'Information sources', items: ['City of Obihiro tourism info', 'Tokachi Bus timetables & routes', 'MLIT National Spatial Data', 'Wikipedia (Kofuku Station)'] },
+  ko: { title: '참고 정보 출처', items: ['오비히로시 관광·이벤트 정보', '도카치 버스 시각표·노선 정보', '국토교통성 국토수치정보', 'Wikipedia (행복역)'] },
+};
+
+const sourceLinks = [
+  { label: '帯広市 観光・イベント情報', url: 'https://www.city.obihiro.hokkaido.jp/' },
+  { label: '十勝バス 時刻表・路線情報', url: 'https://www.tokachibus.jp/' },
+  { label: '国土交通省 国土数値情報', url: 'https://nlftp.mlit.go.jp/ksj/' },
+  { label: 'Wikipedia（幸福駅）', url: 'https://ja.wikipedia.org/wiki/幸福駅' },
+];
+
+const photoCredits = [
+  { name: '幸福駅・青空（hero）', author: 'KofukuEki.com', license: 'CC BY 4.0', src: 'https://kofukueki.com/' },
+  { name: '幸福駅・駅舎', author: 'KofukuEki.com', license: 'CC BY 4.0', src: 'https://kofukueki.com/' },
+  { name: '幸福駅・内部（願いの札）', author: 'KofukuEki.com', license: 'CC BY 4.0', src: 'https://kofukueki.com/' },
+  { name: '幸福駅・キハ22', author: 'KofukuEki.com', license: 'CC BY 4.0', src: 'https://kofukueki.com/' },
+  { name: '幸福の鐘', author: 'KofukuEki.com', license: 'CC BY 4.0', src: 'https://kofukueki.com/' },
+  { name: '幸福駅・周辺の風景', author: 'KofukuEki.com', license: 'CC BY 4.0', src: 'https://kofukueki.com/' },
+];
+---
+<BaseLayout locale={locale} path="/credits/" title={title ?? ut.footerCredits} description={description ?? t.hero.intro} jsonLd={undefined}>
+  <PageHero eyebrow={t.hero.eyebrow} title={t.hero.title} intro={t.hero.intro} breadcrumb={ut.footerCredits} />
+
+  <section class="mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
+    {t.sections.map((sec) => (
+      <div class="mb-12" data-reveal>
+        <h2 class="font-serif-jp text-2xl text-wood-deep">{sec.title}</h2>
+        <p class="mt-4 text-sm leading-8 text-ink-soft">{sec.body}</p>
+      </div>
+    ))}
+
+    <div class="rounded-[2rem] border border-wood/10 bg-white/65 p-6 sm:p-8" data-reveal>
+      <h2 class="font-serif-jp text-xl text-wood-deep">{infoConfirm[locale].title}</h2>
+      <p class="mt-3 text-sm leading-7 text-ink-soft">{infoConfirm[locale].text}</p>
+    </div>
+
+    <h2 class="mt-14 font-serif-jp text-2xl text-wood-deep" data-reveal>{sources[locale].title}</h2>
+    <ul class="mt-4 space-y-2 text-sm text-wood underline decoration-wood/25 hover:decoration-wood">
+      {sourceLinks.map((s) => <li><a href={s.url} target="_blank" rel="noopener noreferrer">{s.label} ↗</a></li>)}
+    </ul>
+    <p class="mt-4 text-xs text-ink-soft/60">{changeNote[locale]}</p>
+  </section>
+
+  <section class="bg-paper-deep/55 py-20 sm:py-24">
+    <div class="mx-auto max-w-5xl px-5 sm:px-8 lg:px-10">
+      <p class="text-xs tracking-[0.2em] text-ticket">PHOTO CREDITS</p>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-wood/15 text-left text-xs tracking-[0.1em] text-ink-soft">
+              {headers[locale].map((h) => <th class="px-3 py-3">{h}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {photoCredits.map((row) => (
+              <tr class="border-b border-wood/8 align-top">
+                <td class="px-3 py-3 text-wood-deep">{row.name}</td>
+                <td class="px-3 py-3 text-ink-soft">{row.author}</td>
+                <td class="px-3 py-3 text-ink-soft">{row.license}</td>
+                <td class="px-3 py-3"><a href={row.src} target="_blank" rel="noopener noreferrer" class="text-wood underline decoration-wood/25 hover:decoration-wood">{row.src.replace('https://', '')} ↗</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-5 py-12 sm:px-8 lg:px-10">
+    <Breadcrumbs items={[{ label: ut.footerCredits }]} locale={locale} />
+  </section>
+</BaseLayout>

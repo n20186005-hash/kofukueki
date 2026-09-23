@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { pages, faqs } from '../../i18n';
+import { ui } from '../../i18n';
+import type { Locale } from '../../i18n';
+
+interface Props { locale: Locale; title?: string; description?: string; }
+const { locale, title, description } = Astro.props;
+const t = pages[locale].faq;
+const ut = ui[locale];
+const items = faqs[locale];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+<BaseLayout locale={locale} path="/faq/" title={title ?? ut.nav.faq} description={description ?? t.hero.intro} image={t.hero.image} jsonLd={faqSchema}>
+  <PageHero eyebrow={t.hero.eyebrow} title={t.hero.title} intro={t.hero.intro} image={t.hero.image} imageSmall={t.hero.imageSmall} alt={t.hero.alt} breadcrumb={ut.nav.faq} />
+
+  <section class="mx-auto max-w-3xl px-5 py-16 sm:px-8 sm:py-24 lg:px-10">
+    <div class="divide-y divide-wood/12 border-y border-wood/12">
+      {items.map((item) => (
+        <details class="group py-1" data-reveal>
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 font-serif-jp text-lg tracking-[0.02em] marker:content-none sm:text-xl">
+            <span>{item.q}</span><span class="text-2xl font-light text-ticket transition group-open:rotate-45" aria-hidden="true">＋</span>
+          </summary>
+          <p class="max-w-2xl pb-7 pr-10 text-sm leading-8 text-ink-soft sm:text-base">{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <div class="mt-12 rounded-[1.5rem] border border-ticket/30 bg-ticket-pale p-7 sm:p-9" data-reveal>
+      <h2 class="font-serif-jp text-xl text-wood-deep">{t.noteTitle}</h2>
+      <p class="mt-4 text-sm leading-7 text-ink-soft">{t.noteText}</p>
+    </div>
+
+    <div class="mt-10"><Breadcrumbs items={[{ label: ut.nav.faq }]} locale={locale} /></div>
+  </section>
+</BaseLayout>
