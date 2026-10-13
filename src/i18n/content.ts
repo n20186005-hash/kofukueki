@@ -126,6 +126,9 @@ export const faqs: Record<Locale, Faq[]> = {
     { q: '愛国駅と一緒に回れますか？', a: '自動車なら幸福駅から愛国駅まで約15分です。「愛の国から幸福へ」の物語をたどる半日コースとして相性のよい組み合わせです。' },
     { q: '幸福駅は当時の駅舎がそのまま残っていますか？', a: '開設当初の駅舎は老朽化のため、2013年に往時の雰囲気を継承する形で建て替えられました。ホームや保存車両とともに、旧広尾線の記憶を伝える観光地として整備されています。' },
     { q: 'このサイトは幸福駅の公式サイトですか？', a: 'いいえ。KofukuEki.comは、公開されている行政・観光・交通情報を整理した非公式の旅行ガイドです。現地運営者、帯広市、交通事業者とは関係ありません。' },
+    { q: '売店はいつ開いていますか？', a: '屋外の見学エリアは基本的にいつでも訪問できますが、売店や軽食の営業時間は季節で異なります。夏期の目安は9:00–17:30、冬期の目安は9:30–15:00です。天候や曜日で変わるため、現地の掲示を優先してください。' },
+    { q: '記念切符はどこで買えますか？', a: '幸福駅と愛国駅の各駅前売店で記念切符を販売しています。帯広市に公式の通販サイトはないため、現地の売店でのお求めになります。詳しくは「記念切符」のページをご覧ください。' },
+    { q: '幸福駅は今も列車の駅として営業していますか？', a: 'いいえ。幸福駅は1987年の広尾線廃止とともに鉄道駅としての営業を終えました。現在は駅舎やホーム、保存車両を残す観光・見学スポットとして整備されています。' },
   ],
   zh: [
     { q: '參觀幸福車站需要付費嗎？', a: '參觀站房、月台、保存車輛等區域免費。在商店購物或部分體驗可能另需付費。' },
@@ -138,6 +141,9 @@ export const faqs: Record<Locale, Faq[]> = {
     { q: '能與愛國車站一起遊覽嗎？', a: '開車的話從幸福車站到愛國車站約 15 分鐘。很適合作為追溯「從愛的國度前往幸福」故事的半日行程。' },
     { q: '幸福車站保留的是當年的原站房嗎？', a: '最初的站房因老舊，於 2013 年以承襲昔日風貌的形式重建。與月台、保存車輛一同整修為傳承舊廣尾線記憶的觀光地。' },
     { q: '本網站是幸福車站的官方網站嗎？', a: '不是。KofukuEki.com 是整理公開行政、觀光與交通資訊的非官方旅遊指南，與當地營運方、帶廣市及交通業者無關。' },
+    { q: '商店什麼時候營業？', a: '戶外參觀區基本上任何時候都能前往，但商店與輕食的營業時間會隨季節變動。夏季約 9:00–17:30、冬季約 9:30–15:00。會因天候與星期而異，請以現場公告為準。' },
+    { q: '紀念車票在哪裡購買？', a: '幸福車站與愛國車站的站前商店皆有販售。帶廣市沒有官方購物網站，請於現場商店購買。詳見「紀念車票」頁面。' },
+    { q: '幸福車站現在仍有列車營運嗎？', a: '沒有。幸福車站隨著 1987 年廣尾線停駛，已結束鐵道車站營運。目前整建為保留站房、月台與保存車輛的觀光・參觀景點。' },
   ],
   en: [
     { q: 'Is there a fee to visit Kofuku Station?', a: 'Viewing the station house, platform, and preserved cars is free. Shopping at the shop or some experiences may cost extra.' },
@@ -150,6 +156,9 @@ export const faqs: Record<Locale, Faq[]> = {
     { q: 'Can I combine it with Aikoku Station?', a: 'By car, Aikoku Station is about 15 minutes from Kofuku. It pairs well as a half-day route tracing the "From the Land of Love, to Happiness" story.' },
     { q: 'Is the original station building still there?', a: 'The first building was rebuilt in 2013 in a style that preserves its old atmosphere. Together with the platform and preserved cars, it is maintained as a tourist site carrying the memory of the Hiroo Line.' },
     { q: 'Is this the official website for Kofuku Station?', a: 'No. KofukuEki.com is an unofficial travel guide compiling publicly available government, tourism, and transit information. It is not affiliated with the local operator, the City of Obihiro, or any transport operator.' },
+    { q: 'When is the shop open?', a: 'The outdoor grounds can generally be visited any time, but the shop and snack hours vary by season. Summer is about 9:00–17:30 and winter about 9:30–15:00. They can change by weather or day, so follow on-site notices.' },
+    { q: 'Where can I buy the commemorative ticket?', a: 'The shops in front of both Kofuku Station and Aikoku Station sell commemorative tickets. There is no official online shop run by the City of Obihiro, so buy them at the local shops. See the "Commemorative tickets" page for details.' },
+    { q: 'Does Kofuku Station still operate as a train station?', a: 'No. Kofuku Station ended railway operations in 1987 with the closure of the Hiroo Line. It is now maintained as a tourist and viewing spot preserving the station building, platform, and preserved trains.' },
   ],
   ko: [
     { q: '행복역 관람에 요금이 드나요?', a: '역사, 승강장, 보존 차량 등의 관람은 무료입니다. 매점 쇼핑이나 일부 체험은 별도 요금이 있을 수 있습니다.' },
@@ -162,6 +171,9 @@ export const faqs: Record<Locale, Faq[]> = {
     { q: '아이쿠 역과 함께 돌아볼 수 있나요?', a: '차로는 행복역에서 아이쿠 역까지 약 15분입니다. 「사랑의 나라에서 행복으로」 이야기를 따라가는 반일 코스로 잘 어울립니다.' },
     { q: '당시 역사가 그대로 남아 있나요?', a: '초기 역사는 노후로 2013년 옛 분위기를 계승하는 형태로 재건되었습니다. 승강장과 보존 차량과 함께 구 히로오 선의 기억을 전하는 관광지로 정비되어 있습니다.' },
     { q: '이 사이트는 행복역 공식 사이트인가요?', a: '아닙니다. KofukuEki.com은 공개된 행정·관광·교통 정보를 정리한 비공식 여행 가이드로, 현지 운영자·오비히로시·교통 사업자와는 무관합니다.' },
+    { q: '매점은 언제 열나요?', a: '야외 관람 구역은 기본적으로 언제든 방문할 수 있지만, 매점과 간식 영업 시간은 계절에 따라 다릅니다. 여름은 약 9:00–17:30, 겨울은 약 9:30–15:00입니다. 날씨나 요일에 따라 바뀌므로 현장 안내를 우선 확인하세요.' },
+    { q: '기념 승차권은 어디서 사나요?', a: '행복역과 아이쿠 역의 각 역 앞 매점에서 기념 승차권을 판매합니다. 오비히로시 공식 쇼핑 사이트는 없으니 현장 매점에서 구매하세요. 자세한 내용은 “기념 승차권” 페이지를 참고하세요.' },
+    { q: '행복역은 지금도 열차역으로 영업하나요?', a: '아니요. 행복역은 1987년 히로오 선 폐지와 함께 철도역 영업을 마쳤습니다. 현재는 역사·승강장·보존 차량을 남긴 관광·견학 명소로 정비되어 있습니다.' },
   ],
 };
 
@@ -170,6 +182,7 @@ export interface PlanCard { kicker: string; titleLines: string[]; text: string; 
 export interface PageContent {
   home: {
     heroEyebrow: string;
+    heroTitleMain: string;
     heroTitleLines: string[];
     heroSubLines: string[];
     cta1: string;
@@ -203,6 +216,7 @@ export interface PageContent {
     atStation: { eyebrow: string; title: string; text: string; addressLabel: string; copy: string; mapApp: string; copyNote: string; busLabel: string; busTitle: string; busText: string; busLink: string };
     map: { eyebrow: string; title: string; text: string };
     hours: { eyebrow: string; title: string; text: string; items: Array<{ label: string; value: string; note: string }> };
+    shopHours: { eyebrow: string; title: string; text: string; rows: Array<{ label: string; value: string; note: string }>; source: string; checked: string; caution: string };
   };
   food: {
     hero: { eyebrow: string; title: string; intro: string; image: string; imageSmall: string; alt: string };
@@ -212,6 +226,19 @@ export interface PageContent {
     hero: { eyebrow: string; title: string; intro: string; image: string; imageSmall: string; alt: string };
     noteTitle: string;
     noteText: string;
+  };
+  ticket: {
+    hero: { eyebrow: string; title: string; intro: string; image: string; imageSmall: string; alt: string };
+    intro: string;
+    blocks: Array<{ number: string; title: string; text: string }>;
+    noteTitle: string;
+    noteText: string;
+  };
+  aikoku: {
+    hero: { eyebrow: string; title: string; intro: string; image: string; imageSmall: string; alt: string };
+    blocks: Array<{ number: string; title: string; text: string }>;
+    course: { eyebrow: string; title: string; text: string; steps: Array<{ kicker: string; title: string; text: string; note: string }> };
+    aikokuInfo: { eyebrow: string; title: string; text: string; items: string[] };
   };
   photos: {
     hero: { eyebrow: string; title: string; intro: string };
@@ -230,6 +257,7 @@ export const pages: Record<Locale, PageContent> = {
   ja: {
     home: {
       heroEyebrow: '旧国鉄広尾線・北海道帯広市',
+      heroTitleMain: '幸福駅跡（旧幸福駅）',
       heroTitleLines: ['愛の国から、', '幸福へ。'],
       heroSubLines: ['列車が走らなくなったあとも、願いはここに到着し続けています。', '幸福駅の物語と、十勝を旅するための静かな案内所。'],
       cta1: 'アクセスを確認',
@@ -287,6 +315,10 @@ export const pages: Record<Locale, PageContent> = {
         { label: '売店・軽食', value: '季節で変動', note: '冬季は短くなる傾向あり' },
         { label: '駐車場', value: '無料・36台', note: '大型バス5台分を含む' },
       ] },
+      shopHours: { eyebrow: 'SHOP HOURS', title: '売店・軽食の営業時間（目安）', text: '屋外の見学エリアとは異なり、売店や軽食の営業時間は季節で変わります。以下は北海道観光公式サイトなどが示す目安です。', rows: [
+        { label: '夏期（目安）', value: '9:00–17:30', note: '繁忙期は延長する場合があります' },
+        { label: '冬期（目安）', value: '9:30–15:00', note: '天候・曜日により短縮' },
+      ], source: '北海道観光公式サイト HOKKAIDO LOVE!', checked: '2026年10月', caution: '現地の掲示を優先してください。' },
     },
     food: {
       hero: { eyebrow: 'FOOD', title: '周辺の食とお土産。', intro: '駅構内の軽食から、中札内の農家レストラン、空港の食事まで。幸福駅を中心に、十勝の味を楽しめる立ち寄り先をまとめました。', image: '/images/bell-1440.webp', imageSmall: '/images/bell-640.webp', alt: '幸福駅の幸福の鐘と駅舎へ続く道' },
@@ -296,6 +328,34 @@ export const pages: Record<Locale, PageContent> = {
       hero: { eyebrow: 'FAQ', title: '幸福駅へ行く前の、よくある質問。', intro: '料金、時間、交通、冬の服装。旅の前に気になることを、できるだけ簡潔にまとめました。', image: '/images/bell-1440.webp', imageSmall: '/images/bell-640.webp', alt: '幸福駅の幸福の鐘と駅舎へ続く道' },
       noteTitle: '訪問前に最新情報をご確認ください。',
       noteText: '現地の営業、交通、積雪、イベントなどは変わります。このページは旅行計画の入口として利用し、当日は現地掲示と交通事業者の最新案内を優先してください。',
+    },
+    ticket: {
+      hero: { eyebrow: 'TICKET', title: '幸福駅の記念切符。', intro: '「愛国から幸福へ」を象徴する記念切符。どこで買え、どんな種類があるのかをまとめました。', image: '/images/interior-1440.webp', imageSmall: '/images/interior-480.webp', alt: 'ピンク色の願い札で覆われた幸福駅の内部' },
+      intro: '幸福駅と愛国駅のそれぞれの駅前売店で、記念切符が販売されています。帯広市に公式の通販サイトはなく、現地の売店でのお求めになります。',
+      blocks: [
+        { number: '01', title: 'どこで買えるか', text: '幸福駅前の売店と、愛国駅前の売店で記念切符を扱っています。いずれも現地の営業状況に合わせて販売されます。' },
+        { number: '02', title: 'どんな種類があるか', text: '「愛国→幸福」の記念切符をはじめ、台紙付きの硬券風や入場証明書型など、いくつかの種類があります。デザインは店舗によって異なる場合があります。' },
+        { number: '03', title: 'オンライン購入はできるか', text: '帯広市が運営する公式の通販サイトはありません。郵送やネットでの購入をうたう第三者サイトにはご注意ください。現地売店でのお求めをおすすめします。' },
+        { number: '04', title: '価格について', text: '切符の種類や時期により異なります。正確な価格は、幸福駅・愛国駅の売店の掲示でご確認ください。' },
+      ],
+      noteTitle: '非公式ガイドの注記',
+      noteText: '当サイトは幸福駅の非公式観光ガイドです。記念切符の種類・価格・販売状況は変わるため、最新情報は現地の売店または帯広市の公式情報をご確認ください。',
+    },
+    aikoku: {
+      hero: { eyebrow: 'AIKOKU TO KOFUKU', title: '愛国から幸福へ。', intro: '「愛の国から幸福へ」を実際の風景でたどる、半日のモデルコース。愛国駅と幸福駅をどうめぐるかを紹介します。', image: '/images/station-1440.webp', imageSmall: '/images/station-960.webp', alt: '幸福駅の木造駅舎を正面から見た風景' },
+      blocks: [
+        { number: '01', title: '愛国駅とは', text: '旧国鉄広尾線の駅で、現在は交通記念館として整備されています。鉄道の資料や古い切符、蒸気機関車などが展示され、幸福駅とセットで訪れる人の多い拠点です。' },
+        { number: '02', title: 'ふたつの駅の距離', text: '愛国駅から幸福駅までは、自動車で約15分。短い距離ですが、ふたつの駅を結ぶ言葉がこの地を象徴しています。' },
+        { number: '03', title: '記念切符のゆくえ', text: '1973年以降、「愛国→幸福」の記念切符が広がりました。幸福駅の前売店で実物を手に取ることができます。' },
+      ],
+      course: { eyebrow: 'MODEL COURSE', title: '半日でめぐる、愛国から幸福へ。', text: '帯広市街を拠点に、鉄道の記憶と願いの景色を効率よく巡るコースです。', steps: [
+        { kicker: 'START', title: '帯広市街・帯広駅', text: 'レンタカーやタクシーで南へ。途中の景色も十勝らしい平原が広がります。', note: '帯広駅からは約30分' },
+        { kicker: 'STOP 1', title: '愛国駅', text: '交通記念館で鉄道の記憶に触れ、記念切符の由来を知る。', note: '3–11月は毎日、12–2月は日曜のみ' },
+        { kicker: 'STOP 2', title: '幸福駅', text: '駅舎・ホーム・保存車両を巡り、願いの札を眺める。', note: '愛国駅から約15分' },
+        { kicker: 'STOP 3', title: '幸福神社（希望）', text: '幸福駅から徒歩約15分。テーマにそった静かな散策に。', note: '現地の時間に余裕を' },
+        { kicker: 'RETURN', title: '中札内・空港へ', text: 'そのまま中札内方面のランチ、または帯広空港への立ち寄りへ。', note: '旅程に合わせて選択' },
+      ] },
+      aikokuInfo: { eyebrow: 'AIKOKU STATION', title: '愛国駅の基本情報', text: '幸福駅とセットで知っておくと、物語がより深まります。', items: ['入場無料（交通記念館）', '3月–11月は毎日開館、12月–2月は日曜のみ', '冬期は屋外の車両が見学できない場合があります', '愛国駅から幸福駅へは自動車で約15分'] },
     },
     photos: {
       hero: { eyebrow: 'PHOTOS', title: '写真で見る幸福駅。', intro: '駅舎、願いの札、ホーム、ディーゼルカー、幸福の鐘。季節ごとの表情を写真で巡ります。' },
@@ -319,6 +379,7 @@ export const pages: Record<Locale, PageContent> = {
   zh: {
     home: {
       heroEyebrow: '舊國鐵廣尾線・北海道帶廣市',
+      heroTitleMain: '幸福車站遺跡（舊幸福車站）',
       heroTitleLines: ['從愛的國度，', '前往幸福。'],
       heroSubLines: ['即使列車不再行駛，願望仍不斷在此抵達。', '幸福車站的故事，與十勝之旅的靜謐指南。'],
       cta1: '查看交通方式',
@@ -376,6 +437,10 @@ export const pages: Record<Locale, PageContent> = {
         { label: '商店・輕食', value: '依季節變動', note: '冬季往往較短' },
         { label: '停車場', value: '免費・36格', note: '含5格大型遊覽車位' },
       ] },
+      shopHours: { eyebrow: 'SHOP HOURS', title: '商店・輕食的營業時間（參考）', text: '與戶外參觀區不同，商店與輕食的營業時間會隨季節變動。以下為北海道官方旅遊網站等列出的參考值。', rows: [
+        { label: '夏季（參考）', value: '9:00–17:30', note: '旺季可能延長' },
+        { label: '冬季（參考）', value: '9:30–15:00', note: '依天候・星期可能縮短' },
+      ], source: '北海道觀光官方網站 HOKKAIDO LOVE!', checked: '2026年10月', caution: '請優先以現場公告為準。' },
     },
     food: {
       hero: { eyebrow: 'FOOD', title: '周邊美食與伴手禮。', intro: '從站區內的輕食，到中札內的農家餐廳、機場的餐食。我們整理了以幸福車站為中心、能享受十勝風味的據點。', image: '/images/bell-1440.webp', imageSmall: '/images/bell-640.webp', alt: '幸福車站的幸福之鐘與通往站房的小路' },
@@ -385,6 +450,34 @@ export const pages: Record<Locale, PageContent> = {
       hero: { eyebrow: 'FAQ', title: '前往幸福車站前，常見的問題。', intro: '費用、時間、交通、冬季穿著。我們將出發前在意的事，盡可能簡短地整理。', image: '/images/bell-1440.webp', imageSmall: '/images/bell-640.webp', alt: '幸福車站的幸福之鐘與通往站房的小路' },
       noteTitle: '出發前請確認最新資訊。',
       noteText: '當地的營業、交通、積雪、活動等都可能變動。本頁作為旅行規劃的入口使用，當天請以現場公告與交通業者的最新資訊為準。',
+    },
+    ticket: {
+      hero: { eyebrow: 'TICKET', title: '幸福車站的紀念車票。', intro: '象徵「從愛國前往幸福」的紀念車票。我們整理了在哪裡購買、有哪些種類。', image: '/images/interior-1440.webp', imageSmall: '/images/interior-480.webp', alt: '內部被粉色許願卡覆蓋的幸福車站' },
+      intro: '幸福車站與愛國車站的站前商店，都有販售紀念車票。帶廣市沒有官方購物網站，請於現場商店購買。',
+      blocks: [
+        { number: '01', title: '在哪裡購買', text: '幸福車站前的商店，以及愛國車站前的商店，皆有販售紀念車票。皆配合現場營業狀況販售。' },
+        { number: '02', title: '有哪些種類', text: '除了「愛國→幸福」紀念車票，還有附底紙的硬券風、入場證明書型等多種。設計可能因店而異。' },
+        { number: '03', title: '能否線上購買', text: '帶廣市沒有官方經營的購物網站。請留意聲稱郵購或網購的第三方網站，建議於現場商店購買。' },
+        { number: '04', title: '關於價格', text: '依車票種類與時期而異。正確價格請確認幸福車站、愛國車站商店的公告。' },
+      ],
+      noteTitle: '非官方指南註記',
+      noteText: '本站為幸福車站的非官方旅遊指南。紀念車票的種類、價格、販售狀況會變動，最新資訊請確認現場商店或帶廣市官方資訊。',
+    },
+    aikoku: {
+      hero: { eyebrow: 'AIKOKU TO KOFUKU', title: '從愛國到幸福。', intro: '用實際風景走一遍「從愛的國度前往幸福」的半日模型路線。介紹如何遊覽愛國車站與幸福車站。', image: '/images/station-1440.webp', imageSmall: '/images/station-960.webp', alt: '從正面看幸福車站木造站房的風景' },
+      blocks: [
+        { number: '01', title: '愛國車站是什麼', text: '舊國鐵廣尾線的車站，目前整建為交通紀念館。展示鐵道資料、舊車票、蒸汽機車等，是與幸福車站搭配造訪的主要據點。' },
+        { number: '02', title: '兩站之間的距離', text: '從愛國車站到幸福車站，開車約 15 分鐘。距離雖短，串連兩站的這句話卻象徵著此地。' },
+        { number: '03', title: '紀念車票的緣起', text: '1973 年以後，「愛國→幸福」的紀念車票廣為流傳。在幸福車站前的商店即可拿到實體車票。' },
+      ],
+      course: { eyebrow: 'MODEL COURSE', title: '半日遊，從愛國到幸福。', text: '以帶廣市區為起點，高效遊覽鐵道記憶與願望風景的路線。', steps: [
+        { kicker: 'START', title: '帶廣市區・帶廣站', text: '租車或計程車往南行。途中也能看見十勝特有的平原景緻。', note: '從帶廣站約 30 分' },
+        { kicker: 'STOP 1', title: '愛國車站', text: '在交通紀念館感受鐵道記憶，認識紀念車票的由來。', note: '3–11月每日、12–2月僅週日' },
+        { kicker: 'STOP 2', title: '幸福車站', text: '遊覽站房、月台、保存車輛，眺望許願卡。', note: '從愛國車站約 15 分' },
+        { kicker: 'STOP 3', title: '幸福神社（選擇）', text: '從幸福車站步行約 15 分。適合配合主題的安靜散步。', note: '請預留現場時間' },
+        { kicker: 'RETURN', title: '前往中札內・機場', text: '接續中札內方向的午餐，或順路前往帶廣機場。', note: '依旅程選擇' },
+      ] },
+      aikokuInfo: { eyebrow: 'AIKOKU STATION', title: '愛國車站基本資訊', text: '與幸福車站搭配了解，故事會更深刻。', items: ['入場免費（交通紀念館）', '3月–11月每日開館、12月–2月僅週日', '冬季戶外車輛可能無法參觀', '從愛國車站到幸福車站開車約 15 分'] },
     },
     photos: {
       hero: { eyebrow: 'PHOTOS', title: '用照片看幸福車站。', intro: '站房、許願卡、月台、柴油列車、幸福之鐘。我們用照片帶您看不同季節的表情。' },
@@ -408,6 +501,7 @@ export const pages: Record<Locale, PageContent> = {
   en: {
     home: {
       heroEyebrow: 'Former JNR Hiroo Line · Obihiro, Hokkaido',
+      heroTitleMain: 'Kofuku Station Ruins (Former Kofuku Station)',
       heroTitleLines: ['From the Land', 'of Love, to Happiness.'],
       heroSubLines: ['Even after trains stopped running, wishes keep arriving here.', 'A quiet guide to the story of Kofuku Station and traveling Tokachi.'],
       cta1: 'Check access',
@@ -465,6 +559,10 @@ export const pages: Record<Locale, PageContent> = {
         { label: 'Shop · snacks', value: 'Varies by season', note: 'Often shorter in winter' },
         { label: 'Parking', value: 'Free · 36 spaces', note: 'Incl. 5 bus spaces' },
       ] },
+      shopHours: { eyebrow: 'SHOP HOURS', title: 'Shop & snack hours (guide)', text: 'Unlike the open grounds, the shop and snack counters keep seasonal hours. The figures below are a guide from the official Hokkaido tourism site and others.', rows: [
+        { label: 'Summer (guide)', value: '9:00–17:30', note: 'May extend in peak season' },
+        { label: 'Winter (guide)', value: '9:30–15:00', note: 'Shorter by weather or day' },
+      ], source: 'Hokkaido Tourism Official Site HOKKAIDO LOVE!', checked: 'October 2026', caution: 'Follow on-site notices.' },
     },
     food: {
       hero: { eyebrow: 'FOOD', title: 'Local food and souvenirs.', intro: 'From snacks on the station grounds to farm restaurants in Nakasatsunai and meals at the airport—stops to enjoy Tokachi flavors centered on Kofuku Station.', image: '/images/bell-1440.webp', imageSmall: '/images/bell-640.webp', alt: 'The Bell of Happiness and the path to the Kofuku station house' },
@@ -474,6 +572,34 @@ export const pages: Record<Locale, PageContent> = {
       hero: { eyebrow: 'FAQ', title: 'Common questions before visiting Kofuku Station.', intro: 'Fees, hours, transport, winter clothing—we kept the things people wonder about before a trip as brief as possible.', image: '/images/bell-1440.webp', imageSmall: '/images/bell-640.webp', alt: 'The Bell of Happiness and the path to the Kofuku station house' },
       noteTitle: 'Please check the latest info before visiting.',
       noteText: 'Local hours, transit, snow, and events can change. Use this page as an entry point for planning, and prioritize on-site notices and the latest operator guidance on the day.',
+    },
+    ticket: {
+      hero: { eyebrow: 'TICKET', title: 'Commemorative tickets of Kofuku.', intro: 'The "Aikoku to Kofuku" ticket became a symbol of good wishes. Here is where to buy it and what types exist.', image: '/images/interior-1440.webp', imageSmall: '/images/interior-480.webp', alt: 'Inside Kofuku Station, covered in pink wish tags' },
+      intro: 'Commemorative tickets are sold at the shops in front of both Kofuku Station and Aikoku Station. The City of Obihiro has no official online shop, so buy them at the local shops.',
+      blocks: [
+        { number: '01', title: 'Where to buy', text: 'The shop in front of Kofuku Station and the one in front of Aikoku Station both sell commemorative tickets, according to their local opening status.' },
+        { number: '02', title: 'What types exist', text: 'Besides the "Aikoku to Kofuku" ticket, there are hard-ticket style cards with backing paper, admission-certificate style, and more. Designs may differ by shop.' },
+        { number: '03', title: 'Can I buy online?', text: 'There is no official online shop run by the City of Obihiro. Be cautious of third-party sites offering mail or online purchases; we recommend buying at the local shops.' },
+        { number: '04', title: 'About prices', text: 'Prices vary by ticket type and season. Confirm the exact price on the notices at the Kofuku and Aikoku station shops.' },
+      ],
+      noteTitle: 'Note from an unofficial guide',
+      noteText: 'KofukuEki.com is an unofficial visitor guide. Ticket types, prices, and availability change, so check the local shops or the official City of Obihiro information for the latest details.',
+    },
+    aikoku: {
+      hero: { eyebrow: 'AIKOKU TO KOFUKU', title: 'From Aikoku to Kofuku.', intro: 'A half-day model route that traces "from the land of love to happiness" in real scenery. See how to tour Aikoku and Kofuku stations.', image: '/images/station-1440.webp', imageSmall: '/images/station-960.webp', alt: 'The wooden station building of Kofuku Station seen from the front' },
+      blocks: [
+        { number: '01', title: 'What is Aikoku Station', text: 'A former JNR Hiroo Line station, now maintained as a transport memorial hall. It displays railway materials, old tickets, and a steam locomotive, and is a common base paired with Kofuku Station.' },
+        { number: '02', title: 'Distance between the two stations', text: 'From Aikoku Station to Kofuku Station is about a 15-minute drive. The distance is short, but the phrase linking the two stations symbolizes this place.' },
+        { number: '03', title: 'Origin of the commemorative ticket', text: 'After 1973, the "Aikoku to Kofuku" commemorative ticket spread widely. You can pick up the real ticket at the shop in front of Kofuku Station.' },
+      ],
+      course: { eyebrow: 'MODEL COURSE', title: 'Half a day, from Aikoku to Kofuku.', text: 'A route from central Obihiro that efficiently visits railway memory and wishful scenery.', steps: [
+        { kicker: 'START', title: 'Obihiro city · Obihiro Station', text: 'Head south by rental car or taxi. The plains along the way are classic Tokachi scenery.', note: 'About 30 min from Obihiro Station' },
+        { kicker: 'STOP 1', title: 'Aikoku Station', text: 'Feel the railway memory at the memorial hall and learn the ticket’s origin.', note: 'Daily Mar–Nov, Sundays only Dec–Feb' },
+        { kicker: 'STOP 2', title: 'Kofuku Station', text: 'Tour the building, platform, and preserved train, and look at the wish tags.', note: 'About 15 min from Aikoku Station' },
+        { kicker: 'STOP 3', title: 'Kofuku Shrine (optional)', text: 'About a 15-minute walk from Kofuku Station. A quiet walk that fits the theme.', note: 'Allow on-site time' },
+        { kicker: 'RETURN', title: 'Toward Nakasatsunai · Airport', text: 'Continue to lunch toward Nakasatsunai, or stop by Obihiro Airport.', note: 'Choose by itinerary' },
+      ] },
+      aikokuInfo: { eyebrow: 'AIKOKU STATION', title: 'Aikoku Station basics', text: 'Knowing this alongside Kofuku Station deepens the story.', items: ['Free admission (transport memorial hall)', 'Open daily Mar–Nov, Sundays only Dec–Feb', 'Outdoor trains may be unavailable to view in winter', 'About a 15-minute drive from Aikoku to Kofuku Station'] },
     },
     photos: {
       hero: { eyebrow: 'PHOTOS', title: 'Kofuku Station in photos.', intro: 'The station house, wish tags, platform, diesel cars, and the Bell of Happiness—see its changing expressions by season.' },
@@ -497,6 +623,7 @@ export const pages: Record<Locale, PageContent> = {
   ko: {
     home: {
       heroEyebrow: '구 국철 히로오 선 · 오비히로시, 홋카이도',
+      heroTitleMain: '행복역 터 (옛 행복역)',
       heroTitleLines: ['사랑의 나라에서,', '행복으로.'],
       heroSubLines: ['열차가 멈춘 뒤에도, 소망은 여기에 계속 도착합니다.', '행복역의 이야기와 도카치 여행을 위한 조용한 안내서.'],
       cta1: '교통편 보기',
@@ -554,6 +681,10 @@ export const pages: Record<Locale, PageContent> = {
         { label: '매점·간식', value: '계절별 변동', note: '겨울에는 짧아지는 경향' },
         { label: '주차장', value: '무료·36면', note: '대형 버스 5면 포함' },
       ] },
+      shopHours: { eyebrow: 'SHOP HOURS', title: '매점·간식 영업 시간 (참고)', text: '개방된 야외 구역과 달리 매점과 간식은 계절에 따라 영업합니다. 아래는 홋카이도 관광 공식 사이트 등이 제시하는 참고값입니다.', rows: [
+        { label: '여름 (참고)', value: '9:00–17:30', note: '성수기에는 연장될 수 있음' },
+        { label: '겨울 (참고)', value: '9:30–15:00', note: '날씨·요일에 따라 단축' },
+      ], source: '홋카이도 관광 공식 사이트 HOKKAIDO LOVE!', checked: '2026년 10월', caution: '현장 안내를 우선 확인하세요.' },
     },
     food: {
       hero: { eyebrow: 'FOOD', title: '주변 맛집과 기념품.', intro: '역 구내 간식부터 나카사츠나이 농가 레스토랑, 공항 식사까지. 행복역을 중심으로 도카치 맛을 즐길 수 있는 거점을 정리했습니다.', image: '/images/bell-1440.webp', imageSmall: '/images/bell-640.webp', alt: '행복의 종과 행복역사로 이어지는 길' },
@@ -563,6 +694,34 @@ export const pages: Record<Locale, PageContent> = {
       hero: { eyebrow: 'FAQ', title: '행복역을 가기 전, 자주 묻는 질문.', intro: '요금, 시간, 교통, 겨울 복장. 여행 전 궁금한 것을 될 수 있는 한 간단히 정리했습니다.', image: '/images/bell-1440.webp', imageSmall: '/images/bell-640.webp', alt: '행복의 종과 행복역사로 이어지는 길' },
       noteTitle: '방문 전 최신 정보를 확인하세요.',
       noteText: '현지 영업·교통·적설·행사 등은 변할 수 있습니다. 이 페이지는 여행 계획의 입구로 활용하고, 당일에는 현장 안내와 교통 사업자 최신 안내를 우선하세요.',
+    },
+    ticket: {
+      hero: { eyebrow: 'TICKET', title: '행복역의 기념 승차권.', intro: '“아이쿠에서 행복으로”를 상징하는 기념 승차권. 어디서 사고 어떤 종류가 있는지 정리했습니다.', image: '/images/interior-1440.webp', imageSmall: '/images/interior-480.webp', alt: '분홍색 소원 카드로 덮인 행복역 내부' },
+      intro: '행복역과 아이쿠 역의 각 역 앞 매점에서 기념 승차권을 판매합니다. 오비히로시 공식 쇼핑 사이트는 없으니 현장 매점에서 구매하세요.',
+      blocks: [
+        { number: '01', title: '어디서 사나', text: '행복역 앞 매점과 아이쿠 역 앞 매점 모두 기념 승차권을 취급하며, 현지 영업 상황에 맞춰 판매합니다.' },
+        { number: '02', title: '어떤 종류가 있나', text: '“아이쿠→행복” 기념 승차권 외에 장지가 있는 하드권 풍, 입장 증명서형 등 여러 종류가 있습니다. 디자인은 점포에 따라 다를 수 있습니다.' },
+        { number: '03', title: '온라인 구매가 가능한가', text: '오비히로시가 운영하는 공식 쇼핑 사이트는 없습니다. 우편·온라인 구매를 내세우는 제3자 사이트는 주의하세요. 현장 매점 구매를 권장합니다.' },
+        { number: '04', title: '가격은', text: '승차권 종류와 시기에 따라 다릅니다. 정확한 가격은 행복역·아이쿠 역 매점의 안내를 확인하세요.' },
+      ],
+      noteTitle: '비공식 가이드 안내',
+      noteText: 'KofukuEki.com은 행복역의 비공식 관광 가이드입니다. 기념 승차권의 종류·가격·판매 상황은 변하므로 최신 정보는 현장 매점이나 오비히로시 공식 정보를 확인하세요.',
+    },
+    aikoku: {
+      hero: { eyebrow: 'AIKOKU TO KOFUKU', title: '아이쿠에서 행복으로.', intro: '“사랑의 나라에서 행복으로”를 실제 풍경으로 걷는 반나절 모델 코스. 아이쿠 역과 행복역을 어떻게 둘러보는지 소개합니다.', image: '/images/station-1440.webp', imageSmall: '/images/station-960.webp', alt: '정면에서 본 행복역의 목조 역사' },
+      blocks: [
+        { number: '01', title: '아이쿠 역이란', text: '구 일본국유철도 히로오 선의 역으로, 현재는 교통 기념관으로 정비되어 있습니다. 철도 자료와 옛 승차권, 증기 기관차 등이 전시되며 행복역과 함께 찾는 주요 거점입니다.' },
+        { number: '02', title: '두 역의 거리', text: '아이쿠 역에서 행복역까지는 자동차로 약 15분. 거리는 짧지만 두 역을 잇는 말이 이곳을 상징합니다.' },
+        { number: '03', title: '기념 승차권의 유래', text: '1973년 이후 “아이쿠→행복” 기념 승차권이 널리 퍼졌습니다. 행복역 앞 매점에서 실물을 받을 수 있습니다.' },
+      ],
+      course: { eyebrow: 'MODEL COURSE', title: '반나절, 아이쿠에서 행복으로.', text: '오비히로 시내를 기점으로 철도의 기억과 소원 풍경을 효율적으로 도는 코스입니다.', steps: [
+        { kicker: 'START', title: '오비히로 시내·오비히로역', text: '렌터카나 택시로 남쪽으로. 길가에는 도카치 특유의 평야가 펼쳐집니다.', note: '오비히로역에서 약 30분' },
+        { kicker: 'STOP 1', title: '아이쿠 역', text: '교통 기념관에서 철도의 기억을 느끼고 기념 승차권의 유래를 압니다.', note: '3–11월 매일, 12–2월은 일요일만' },
+        { kicker: 'STOP 2', title: '행복역', text: '역사·승강장·보존 차량을 둘러보고 소원 카드를 봅니다.', note: '아이쿠 역에서 약 15분' },
+        { kicker: 'STOP 3', title: '행복신사(선택)', text: '행복역에서 도보 약 15분. 주제에 맞는 조용한 산책에 좋습니다.', note: '현장 시간을 여유 있게' },
+        { kicker: 'RETURN', title: '나카사츠나이·공항으로', text: '나카사츠나이 방면 점심이나 오비히로 공항 경유로 이어집니다.', note: '일정에 따라 선택' },
+      ] },
+      aikokuInfo: { eyebrow: 'AIKOKU STATION', title: '아이쿠 역 기본 정보', text: '행복역과 함께 알면 이야기가 더 깊어집니다.', items: ['입장 무료(교통 기념관)', '3–11월 매일 개관, 12–2월은 일요일만', '겨울에는 야외 차량 관람이 불가할 수 있음', '아이쿠 역에서 행복역까지 자동차로 약 15분'] },
     },
     photos: {
       hero: { eyebrow: 'PHOTOS', title: '사진으로 보는 행복역.', intro: '역사, 소망 카드, 승강장, 디젤 카, 행복의 종. 계절별 표정을 사진으로 둘러봅니다.' },

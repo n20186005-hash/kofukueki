@@ -43,7 +43,7 @@ export function getHreflangAlternates(jaPath: string, siteUrl: string): Array<{ 
 }
 
 type UiStrings = {
-  nav: { about: string; guide: string; access: string; food: string; faq: string };
+  nav: { about: string; guide: string; access: string; food: string; faq: string; ticket: string; aikoku: string };
   skipToContent: string;
   accessCta: string;
   menuOpen: string;
@@ -65,11 +65,12 @@ type UiStrings = {
   backToTop: string;
   lastUpdated: string;
   sourceLabel: string;
+  ratingLabel: string;
 };
 
 export const ui: Record<Locale, UiStrings> = {
   ja: {
-    nav: { about: '幸福駅の物語', guide: '見どころ', access: 'アクセス', food: '周辺グルメ', faq: 'よくある質問' },
+    nav: { about: '幸福駅の物語', guide: '見どころ', access: 'アクセス', food: '周辺グルメ', faq: 'よくある質問', ticket: '記念切符', aikoku: '愛国から幸福へ' },
     skipToContent: '本文へ移動',
     accessCta: '旅のアクセス',
     menuOpen: 'メニューを開く',
@@ -92,9 +93,10 @@ export const ui: Record<Locale, UiStrings> = {
     backToTop: 'ページの先頭へ',
     lastUpdated: '最終確認',
     sourceLabel: '情報源',
+    ratingLabel: 'Google マップの評価',
   },
   zh: {
-    nav: { about: '幸福車站故事', guide: '看點', access: '交通方式', food: '周邊美食', faq: '常見問題' },
+    nav: { about: '幸福車站故事', guide: '看點', access: '交通方式', food: '周邊美食', faq: '常見問題', ticket: '紀念車票', aikoku: '從愛國到幸福' },
     skipToContent: '前往主要內容',
     accessCta: '前往交通資訊',
     menuOpen: '開啟選單',
@@ -117,9 +119,10 @@ export const ui: Record<Locale, UiStrings> = {
     backToTop: '回到頁首',
     lastUpdated: '最後確認',
     sourceLabel: '資料來源',
+    ratingLabel: 'Google 地圖評分',
   },
   en: {
-    nav: { about: 'The Kofuku Story', guide: 'Highlights', access: 'Access', food: 'Local Food', faq: 'FAQ' },
+    nav: { about: 'The Kofuku Story', guide: 'Highlights', access: 'Access', food: 'Local Food', faq: 'FAQ', ticket: 'Commemorative tickets', aikoku: 'Aikoku to Kofuku' },
     skipToContent: 'Skip to content',
     accessCta: 'Plan your access',
     menuOpen: 'Open menu',
@@ -142,9 +145,10 @@ export const ui: Record<Locale, UiStrings> = {
     backToTop: 'Back to top',
     lastUpdated: 'Last checked',
     sourceLabel: 'Sources',
+    ratingLabel: 'Google Maps rating',
   },
   ko: {
-    nav: { about: '행복역 이야기', guide: '둘러보기', access: '교통편', food: '주변 맛집', faq: '자주 묻는 질문' },
+    nav: { about: '행복역 이야기', guide: '둘러보기', access: '교통편', food: '주변 맛집', faq: '자주 묻는 질문', ticket: '기념 승차권', aikoku: '아이쿠에서 행복으로' },
     skipToContent: '본문으로 이동',
     accessCta: '교통 안내',
     menuOpen: '메뉴 열기',
@@ -167,5 +171,6 @@ export const ui: Record<Locale, UiStrings> = {
     backToTop: '맨 위로',
     lastUpdated: '최종 확인',
     sourceLabel: '참고 자료',
+    ratingLabel: 'Google 지도 평점',
   },
 };

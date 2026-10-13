@@ -1,14 +1,21 @@
 export const site = {
   name: '幸福駅',
-  fullName: '幸福駅｜帯広・十勝の旅ガイド',
+  fullName: '幸福駅跡（旧幸福駅）観光ガイド｜アクセス・駐車場・営業時間｜北海道帯広市',
   domain: 'KofukuEki.com',
   url: 'https://kofukueki.com',
   description:
-    '北海道帯広市の幸福駅を訪れるための非公式観光ガイド。歴史、見どころ、アクセス、駐車場、バス、周辺グルメ、愛国駅と巡るモデルコースを紹介します。',
+    '北海道帯広市の幸福駅跡（旧幸福駅）を観光する方へ。無料駐車場、営業時間、帯広駅からのバス、帯広空港からのアクセス、愛国から幸福ゆきの記念切符、見どころを紹介します。',
   address: '北海道帯広市幸福町東1線161',
   postalAddress: '〒089-1246 北海道帯広市幸福町東1線161',
   coordinates: { lat: 42.745315, lng: 143.1616703 },
   gaId: 'G-HXM22WWPKP',
+} as const;
+
+export const rating = {
+  value: 4.1,
+  count: 2753,
+  source: 'Google マップ',
+  checked: '2026年10月',
 } as const;
 
 export const navItems = [
