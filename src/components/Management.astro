@@ -9,12 +9,19 @@ const copy = {
   ko: { eyebrow: '장소 안내', heading: '옛 고후쿠역 관리와 보존', body: '옛 고후쿠역이 있는 고후쿠 후레아이 광장은 오비히로시가 정비한 공공 관광시설입니다. 시 공개 자료에 따르면 지역 주민으로 구성된 ‘고후쿠 관광재개발협의회’에 관리를 위탁하고 있습니다. 1987년 히로오선 폐선 이후에도 역의 상징성은 이어졌고, 2013년에는 옛 분위기를 살리면서 철도 공원과 교류 광장으로 정비했습니다.', aikoku: '옛 아이코쿠역 건물은 오비히로시가 안내하는 교통기념관으로 활용되고 있습니다. 옛 히로오선과 ‘사랑의 나라에서 행복으로’라는 관광 역사를 전하며 개관일과 야외 전시 관람 조건은 계절에 따라 달라집니다.', shrine: '고후쿠 신사는 옛 역과 별개의 종교 시설이며 오비히로 관광협회 관광 목록에 소개되어 있습니다. 신사 운영 주체를 확인할 충분한 공식 자료가 없어 역 광장 관리 주체와 혼동해서는 안 됩니다.' },
 }[locale];
 const body = place === 'kofuku' ? copy.body : copy[place];
+const placeHeading = {
+  ja: { aikoku: '愛国駅跡・交通記念館の保存と案内', shrine: '幸福神社の管理について' },
+  zh: { aikoku: '愛國車站交通紀念館的保存與管理', shrine: '幸福神社的管理資訊' },
+  en: { aikoku: 'Who looks after Aikoku Station?', shrine: 'Who manages Kofuku Shrine?' },
+  ko: { aikoku: '옛 아이코쿠역의 보존과 관리', shrine: '고후쿠 신사의 관리 안내' },
+}[locale];
+const heading = place === 'kofuku' ? copy.heading : placeHeading[place];
 const sourceLabel = { ja: '帯広市・観光協会の掲載情報', zh: '帶廣市及觀光協會資料', en: 'Obihiro City and tourism association', ko: '오비히로시·관광협회 자료' }[locale];
 const source = place === 'kofuku' ? 'https://www.city.obihiro.hokkaido.jp/shisei/kouhou/1013272/1013364/1017867.html' : place === 'aikoku' ? 'https://www.city.obihiro.hokkaido.jp/tourism/kankouchi/koufuku/1003137.html' : 'https://obikan.jp/post_spot/1493/';
 ---
 <section class="bg-paper-deep/55 py-20 sm:py-24" aria-labelledby="management-heading">
   <div class="mx-auto grid max-w-7xl gap-9 px-5 sm:px-8 lg:grid-cols-[1fr_2fr] lg:gap-20 lg:px-10">
-    <div><p class="rule-line text-xs tracking-[0.2em] text-ticket">{copy.eyebrow}</p><h2 id="management-heading" class="mt-6 font-serif-jp text-3xl leading-relaxed text-wood-deep">{copy.heading}</h2></div>
+    <div><p class="rule-line text-xs tracking-[0.2em] text-ticket">{copy.eyebrow}</p><h2 id="management-heading" class="mt-6 font-serif-jp text-3xl leading-relaxed text-wood-deep">{heading}</h2></div>
     <div><p class="text-base leading-9 text-ink-soft">{body}</p><a class="mt-6 inline-block text-sm text-wood underline" target="_blank" rel="noopener noreferrer" href={source}>{sourceLabel} ↗</a></div>
   </div>
 </section>
