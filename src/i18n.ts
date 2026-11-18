@@ -1,6 +1,9 @@
 export const locales = ['ja', 'zh', 'en', 'ko'] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = 'ja';
+// Keep the public translation entry point compatible with existing page components.
+export { pages, quickFacts, timeline, highlights, foodSpots, faqs } from './i18n/content';
+export const getUi = (locale: Locale) => ui[locale];
 
 export const localeMeta: Record<
   Locale,

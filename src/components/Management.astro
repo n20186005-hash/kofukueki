@@ -1,0 +1,20 @@
+---
+import type { Locale } from '../i18n';
+interface Props { locale: Locale; place?: 'kofuku' | 'aikoku' | 'shrine' }
+const { locale, place = 'kofuku' } = Astro.props;
+const copy = {
+  ja: { eyebrow: 'ABOUT THE PLACE', heading: '幸福駅跡を支える管理体制', body: '旧幸福駅を含む「幸福ふれあい広場」は、帯広市が整備した公共の観光施設です。帯広市の公表情報では、地域住民で構成される「幸福観光再開発協議会」に管理を委託しています。1987年に広尾線が廃止された後も駅名の物語は受け継がれ、2013年には古い雰囲気を残しながら駅舎と周辺が交通公園・ふれあい広場として再整備されました。', aikoku: '旧愛国駅の駅舎は帯広市が紹介する交通記念館として活用されています。旧国鉄広尾線の記憶や「愛の国から幸福へ」の観光史を伝える場所で、館内の開館日と屋外展示の見学条件は季節により異なります。', shrine: '幸福神社は、幸福駅跡とは別の神社です。帯広観光コンベンション協会の観光案内に掲載されていますが、神社の運営主体について公式に確認できる資料は見つかっていないため、市の駅施設管理と混同しないでください。' },
+  zh: { eyebrow: '關於管理', heading: '幸福車站遺跡的管理與保存', body: '包含舊幸福車站的「幸福交流廣場」是帶廣市整建的公共觀光設施。依帶廣市公開資料，現場管理委託給由當地居民組成的「幸福觀光再開發協議會」。1987 年廣尾線廢線後，車站仍保留幸福的象徵意義；2013 年又以保留舊站氛圍的概念，將站房與周邊整建為交通公園和交流廣場。', aikoku: '舊愛國車站的站房作為交通紀念館使用，呈現舊國鐵廣尾線及「從愛之國到幸福」的旅遊歷史。館舍開放及戶外展示條件依季節不同，應以帶廣市公告為準。', shrine: '幸福神社是與幸福車站不同的宗教場所，已列入帶廣觀光協會的旅遊資訊。神社實際管理單位尚無充分官方資料可核實，不能將車站廣場的受託管理者視為神社管理者。' },
+  en: { eyebrow: 'ABOUT THE PLACE', heading: 'Who looks after the former Kofuku Station?', body: 'Kofuku Fureai Square, which includes the former station, is a public visitor facility developed by Obihiro City. According to the city, its management has been entrusted to the Kofuku Tourism Redevelopment Council, an organization of local residents. Following the Hiroo Line closure in 1987, the station remained a symbol of happiness. In 2013 its building and surroundings were renewed as a railway heritage park and gathering space while retaining the old-station character.', aikoku: 'The former Aikoku Station building serves as a transport museum described by Obihiro City. It preserves memories of the JNR Hiroo Line and the “From the Land of Love to Happiness” travel story. Museum opening days and outdoor exhibit access vary seasonally.', shrine: 'Kofuku Shrine is a separate religious site from the former station and is listed by the Obihiro tourism association. The shrine’s operator has not been verified from an authoritative source, so the station-square management arrangement should not be attributed to the shrine.' },
+  ko: { eyebrow: '장소 안내', heading: '옛 고후쿠역 관리와 보존', body: '옛 고후쿠역이 있는 고후쿠 후레아이 광장은 오비히로시가 정비한 공공 관광시설입니다. 시 공개 자료에 따르면 지역 주민으로 구성된 ‘고후쿠 관광재개발협의회’에 관리를 위탁하고 있습니다. 1987년 히로오선 폐선 이후에도 역의 상징성은 이어졌고, 2013년에는 옛 분위기를 살리면서 철도 공원과 교류 광장으로 정비했습니다.', aikoku: '옛 아이코쿠역 건물은 오비히로시가 안내하는 교통기념관으로 활용되고 있습니다. 옛 히로오선과 ‘사랑의 나라에서 행복으로’라는 관광 역사를 전하며 개관일과 야외 전시 관람 조건은 계절에 따라 달라집니다.', shrine: '고후쿠 신사는 옛 역과 별개의 종교 시설이며 오비히로 관광협회 관광 목록에 소개되어 있습니다. 신사 운영 주체를 확인할 충분한 공식 자료가 없어 역 광장 관리 주체와 혼동해서는 안 됩니다.' },
+}[locale];
+const body = place === 'kofuku' ? copy.body : copy[place];
+const sourceLabel = { ja: '帯広市・観光協会の掲載情報', zh: '帶廣市及觀光協會資料', en: 'Obihiro City and tourism association', ko: '오비히로시·관광협회 자료' }[locale];
+const source = place === 'kofuku' ? 'https://www.city.obihiro.hokkaido.jp/shisei/kouhou/1013272/1013364/1017867.html' : place === 'aikoku' ? 'https://www.city.obihiro.hokkaido.jp/tourism/kankouchi/koufuku/1003137.html' : 'https://obikan.jp/post_spot/1493/';
+---
+<section class="bg-paper-deep/55 py-20 sm:py-24" aria-labelledby="management-heading">
+  <div class="mx-auto grid max-w-7xl gap-9 px-5 sm:px-8 lg:grid-cols-[1fr_2fr] lg:gap-20 lg:px-10">
+    <div><p class="rule-line text-xs tracking-[0.2em] text-ticket">{copy.eyebrow}</p><h2 id="management-heading" class="mt-6 font-serif-jp text-3xl leading-relaxed text-wood-deep">{copy.heading}</h2></div>
+    <div><p class="text-base leading-9 text-ink-soft">{body}</p><a class="mt-6 inline-block text-sm text-wood underline" target="_blank" rel="noopener noreferrer" href={source}>{sourceLabel} ↗</a></div>
+  </div>
+</section>

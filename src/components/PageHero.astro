@@ -5,13 +5,13 @@ interface Props {
   eyebrow: string;
   title: string;
   intro: string;
-  image: string;
+  image?: string;
   imageSmall?: string;
-  alt: string;
+  alt?: string;
   breadcrumb: string;
   position?: string;
 }
-const { eyebrow, title, intro, image, imageSmall, alt, breadcrumb, position = 'center' } = Astro.props;
+const { eyebrow, title, intro, image = '/images/station-1440.webp', imageSmall, alt = '幸福駅跡の駅舎', breadcrumb, position = 'center' } = Astro.props;
 ---
 <section class="mx-auto max-w-7xl px-5 pt-7 sm:px-8 sm:pt-10 lg:px-10">
   <Breadcrumbs items={[{ label: breadcrumb }]} />

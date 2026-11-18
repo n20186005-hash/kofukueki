@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import Management from '../Management.astro';
+import { site, rating } from '../../data/site';
+import type { Locale } from '../../i18n';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const content = {
+  ja: { title: '幸福駅の駐車場｜無料駐車場・入口・混雑時の注意', intro: '幸福駅跡へ車で行く方のために、駐車場の位置、収容台数、見学の流れを整理しました。', eyebrow: 'PARKING GUIDE', basic: '無料駐車場の基本情報', capacity: '駐車可能台数', capacityText: '普通車・大型バスを合わせて36台分（大型バス5台分を含む）と案内されています。', fee: '駐車料金', free: '無料', place: '所在地', access: '駐車場までの行き方', accessText: '目的地を「幸福駅跡」に設定し、現地の駐車場案内標識に従ってください。道路上での停車や路上駐車は避けてください。', route: '駐車後の見学順', steps: ['駐車場から駅舎へ向かい、願い札に囲まれた駅舎を見学', 'ホームと保存されているキハ22形車両を観察', '幸福の鐘で記念写真を撮り、周辺を散策'], caution: '訪問前に知っておきたいこと', cautionText: '繁忙期は満車になる場合があります。積雪時は路面と歩行スペースに注意し、現地の交通誘導・掲示を優先してください。バス運行や売店の営業時間は別途確認が必要です。', map: 'Google マップで幸福駅を開く', other: 'バス・空港からのアクセス', note: '掲載の台数・料金は既存の観光案内を基に整理。変更があるため現地で最新表示をご確認ください。', reviews: 'Google マップ評価（参考）' },
+  zh: { title: '幸福車站停車場｜免費停車與參觀路線', intro: '整理北海道帶廣幸福車站遺跡的停車位置、車位數與現場參觀順序。', eyebrow: '停車指南', basic: '免費停車場資訊', capacity: '停車位', capacityText: '現有旅遊資訊列出共36個車位，其中包含5個大型巴士車位。', fee: '停車費', free: '免費', place: '地址', access: '如何抵達停車場', accessText: '導航至「幸福駅跡」，抵達後以現場停車場指標為準，請勿在道路上臨時停車。', route: '停車後參觀順序', steps: ['步行前往站房，欣賞旅客留下的心願卡', '參觀月台及保存的 KiHa 22 柴油車廂', '到幸福之鐘拍照，接著散步欣賞周邊'], caution: '出發前提醒', cautionText: '假日可能客滿，冬季要留意積雪、結冰及步行安全。巴士班次與店鋪營業時間請另行查詢。', map: '在 Google 地圖查看幸福車站', other: '巴士與機場交通指南', note: '停車位數及費用依既有觀光資訊整理，最新狀況以現場公告為準。', reviews: 'Google 地圖評分（參考）' },
+  en: { title: 'Kofuku Station Parking | Free Parking & Visitor Route', intro: 'Plan a visit by car to the former Kofuku Station in Obihiro, Hokkaido, with parking details and a short walking route.', eyebrow: 'PARKING GUIDE', basic: 'Free parking essentials', capacity: 'Spaces', capacityText: 'Existing visitor information lists 36 spaces in total, including 5 for large buses.', fee: 'Parking charge', free: 'Free', place: 'Address', access: 'Finding the car park', accessText: 'Navigate to “Kofuku Station” and follow the parking signs on arrival. Avoid stopping or parking on the road.', route: 'Suggested walk after parking', steps: ['Walk to the station building and see the wishes left by visitors', 'Explore the platform and preserved KiHa 22 diesel railcars', 'Take a photo at the Bell of Happiness and stroll around the grounds'], caution: 'Before you go', cautionText: 'Parking may fill up during busy periods. In winter, watch for snow and ice. Check bus schedules and shop hours separately.', map: 'Open Kofuku Station in Google Maps', other: 'Bus and airport access', note: 'Capacity and fees reflect existing visitor information; follow the latest on-site notices.', reviews: 'Google Maps rating (reference)' },
+  ko: { title: '고후쿠역 주차장 | 무료 주차 및 관람 동선', intro: '홋카이도 오비히로의 옛 고후쿠역을 자동차로 방문할 때 필요한 주차 및 도보 관람 정보를 정리했습니다.', eyebrow: '주차 안내', basic: '무료 주차장 정보', capacity: '주차 대수', capacityText: '기존 관광 안내에 따르면 대형 버스 5대를 포함해 총 36대 주차할 수 있습니다.', fee: '주차 요금', free: '무료', place: '주소', access: '주차장 찾아가기', accessText: '목적지를 ‘고후쿠역’으로 설정하고 도착 후 현장 주차장 표지판을 따르세요. 도로 위 정차·주차는 피하세요.', route: '주차 후 관람 코스', steps: ['역사 안에서 방문객의 소원 메시지 살펴보기', '승강장과 보존된 KiHa 22 디젤 열차 관람', '행복의 종에서 사진을 찍고 주변 산책'], caution: '방문 전 참고', cautionText: '혼잡한 시기에는 만차일 수 있습니다. 겨울에는 눈과 결빙에 주의하고 버스 운행 및 매장 영업시간을 별도로 확인하세요.', map: 'Google 지도에서 고후쿠역 보기', other: '버스·공항 교통 안내', note: '주차 대수와 요금은 기존 관광 안내 기준이며 최신 정보는 현장 게시를 확인하세요.', reviews: 'Google 지도 평점 (참고)' },
+} as const;
+const t = content[locale];
+const prefix = locale === 'ja' ? '' : `/${locale}`;
+const mapUrl = 'https://maps.app.goo.gl/5tG7m8dAcZR5knuE7';
+const schema = { '@context': 'https://schema.org', '@type': 'WebPage', name: t.title, description: t.intro, about: { '@type': 'TouristAttraction', name: '幸福駅跡', geo: { '@type': 'GeoCoordinates', latitude: site.coordinates.lat, longitude: site.coordinates.lng } } };
+---
+<BaseLayout locale={locale} path="/parking/" title={t.title} description={t.intro} jsonLd={schema}>
+  <PageHero eyebrow={t.eyebrow} title={t.title} intro={t.intro} image="/images/station-1440.webp" imageSmall="/images/station-640.webp" alt="幸福駅跡の駅舎" breadcrumb={t.basic} />
+  <Management locale={locale} />
+  <section class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10">
+    <h2 class="font-serif-jp text-3xl text-wood-deep">{t.basic}</h2>
+    <div class="mt-8 grid gap-5 sm:grid-cols-3">
+      <div class="rounded-3xl bg-ticket-pale p-7"><h3 class="text-sm text-ink-soft">{t.capacity}</h3><p class="mt-3 text-lg leading-8">{t.capacityText}</p></div>
+      <div class="rounded-3xl bg-ticket-pale p-7"><h3 class="text-sm text-ink-soft">{t.fee}</h3><p class="mt-3 font-serif-jp text-2xl">{t.free}</p></div>
+      <div class="rounded-3xl bg-ticket-pale p-7"><h3 class="text-sm text-ink-soft">{t.place}</h3><p class="mt-3 text-lg leading-8">{site.postalAddress}</p></div>
+    </div>
+    <p class="mt-6 text-sm leading-7 text-ink-soft">{t.note} <a class="underline" href="https://www.city.obihiro.hokkaido.jp/tourism/kankouchi/koufuku/1003136.html" target="_blank" rel="noopener noreferrer">帯広市・幸福駅案内 ↗</a>（2026-11-18）</p>
+  </section>
+  <section class="bg-paper-deep/55 py-20"><div class="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-2 lg:px-10">
+    <div><h2 class="font-serif-jp text-3xl text-wood-deep">{t.access}</h2><p class="mt-6 leading-8 text-ink-soft">{t.accessText}</p><a class="mt-7 inline-flex rounded-full bg-wood-deep px-6 py-3 text-white" href={mapUrl} target="_blank" rel="noopener noreferrer">{t.map} ↗</a></div>
+    <figure class="photo-frame aspect-[4/3] rounded-3xl"><img src="/images/station-960.webp" alt="幸福駅の駅舎と周辺" width="960" height="720" loading="lazy" /></figure>
+  </div></section>
+  <section class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10">
+    <h2 class="font-serif-jp text-3xl text-wood-deep">{t.route}</h2><ol class="mt-8 grid gap-5 md:grid-cols-3">{t.steps.map((step, i) => <li class="rounded-3xl border border-wood/10 bg-white/65 p-7"><span class="text-3xl text-ticket">{String(i + 1).padStart(2, '0')}</span><p class="mt-4 leading-8">{step}</p></li>)}</ol>
+    <h2 class="mt-16 font-serif-jp text-3xl text-wood-deep">{t.caution}</h2><p class="mt-6 max-w-3xl leading-8 text-ink-soft">{t.cautionText}</p>
+    <div class="mt-8 flex flex-wrap gap-5"><a class="text-wood underline" href={`${prefix}/access/`}>{t.other} →</a><a class="text-wood underline" href={mapUrl} target="_blank" rel="noopener noreferrer">{t.reviews}: {rating.value} / 5 ({rating.count}) ↗</a></div>
+  </section>
+</BaseLayout>

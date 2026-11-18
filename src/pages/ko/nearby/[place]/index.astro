@@ -1,0 +1,7 @@
+---
+import NearbyPlace from '../../../../components/pages/NearbyPlace.astro';
+import { nearbySlugs } from '../../../../data/nearby';
+export function getStaticPaths() { return nearbySlugs.map((place) => ({ params: { place }, props: { place } })); }
+const { place } = Astro.props;
+---
+<NearbyPlace locale="ko" slug={place} />

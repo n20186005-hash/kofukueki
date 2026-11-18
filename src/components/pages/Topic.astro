@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import Management from '../Management.astro';
+import { topics, topicSlugs, topicLabels, topicMap, aikokuMap, type TopicSlug } from '../../data/topics';
+import { localizedPath, type Locale } from '../../i18n';
+import { site } from '../../data/site';
+
+interface Props { locale: Locale; slug: TopicSlug }
+const { locale, slug } = Astro.props;
+const t = topics[locale][slug];
+const alternate = topicSlugs.filter((s) => s !== slug);
+const prompts = {
+  ja: { plan: '見学の進め方', attention: '出発前の確認', maps: '幸福駅の地図', aikoku: '愛国駅の地図', sources: '参考資料・更新日', related: 'あわせて読みたい', route: '関連する基本ガイド', facts: '基本情報', location: '所在地', fee: '見学料金', free: '無料（買い物は別）', stay: '滞在目安', minutes: '40～60分', photos: '写真で見る幸福駅', faq: 'よくある質問', question: 'この見学は事前予約が必要ですか？', answer: '駅跡の通常の屋外見学は予約不要です。売店での購入や特別な体験は営業先にご確認ください。', question2: '公共交通でも行けますか？', answer2: '帯広駅から十勝バス60番・広尾線で「幸福」下車、徒歩約5分です。往復便を公式時刻表で確認してください。' },
+  zh: { plan: '建議參觀步驟', attention: '出發前提醒', maps: '幸福車站地圖', aikoku: '愛國車站地圖', sources: '資料來源與核對日期', related: '延伸閱讀', route: '相關基本指南', facts: '基本資料', location: '所在地', fee: '參觀費用', free: '免費（購物另計）', stay: '停留時間', minutes: '40–60分鐘', photos: '幸福車站實景', faq: '常見問題', question: '普通參觀需要預約嗎？', answer: '車站戶外區域一般不需預約。商店購物與特別體驗請另查營業情況。', question2: '沒有車也能到達嗎？', answer2: '可從帶廣站搭十勝巴士60號廣尾線，到「幸福」下車步行約5分鐘；請先確認往返班次。' },
+  en: { plan: 'Suggested steps', attention: 'Before you go', maps: 'Kofuku map', aikoku: 'Aikoku map', sources: 'Source & checked date', related: 'Explore more', route: 'Related main guide', facts: 'Visitor essentials', location: 'Address', fee: 'Admission', free: 'Free (purchases extra)', stay: 'Suggested time', minutes: '40–60 minutes', photos: 'Kofuku Station in photos', faq: 'Frequently asked questions', question: 'Do I need a reservation?', answer: 'No reservation is normally required to explore the outdoor station grounds. Special experiences and shop visits depend on availability.', question2: 'Can I visit without a car?', answer2: 'Take Tokachi Bus route 60 from Obihiro Station to Kofuku, then walk about five minutes. Check both directions before leaving.' },
+  ko: { plan: '추천 순서', attention: '방문 전 확인', maps: '고후쿠역 지도', aikoku: '아이코쿠역 지도', sources: '자료 출처 및 확인일', related: '함께 읽기', route: '기본 안내', facts: '기본 정보', location: '주소', fee: '관람료', free: '무료 (구매 별도)', stay: '추천 관람 시간', minutes: '40~60분', photos: '고후쿠역 실경 사진', faq: '자주 묻는 질문', question: '일반 관람에 예약이 필요한가요?', answer: '역터 야외 관람에는 보통 예약이 필요하지 않습니다. 특별 체험이나 매장 이용은 별도 확인하세요.', question2: '차 없이 갈 수 있나요?', answer2: '오비히로역에서 도카치 버스60번을 타고 고후쿠 정류장에서 하차해 약5분 걸으면 됩니다. 왕복 운행을 확인하세요.' },
+}[locale];
+const secondaryPhoto = slug === 'photo-spots' ? '/images/bell-960.webp' : slug === 'kofuku-to-aikoku' ? '/images/aikoku-station-photo.jpg' : slug === 'hours-shops' ? '/images/interior-960.webp' : slug === 'winter-visit' ? '/images/station-960.webp' : '/images/train-960.webp';
+const schema = {
+  '@context': 'https://schema.org', '@type': 'WebPage', name: t.title, description: t.description,
+  about: { '@type': 'TouristAttraction', name: '幸福駅跡', url: 'https://kofukueki.com/' },
+  dateModified: '2026-11-18',
+};
+---
+<BaseLayout locale={locale} path={`/${slug}/`} title={t.title} description={t.description} jsonLd={schema}>
+  <PageHero eyebrow="KOFUKU STATION GUIDE" title={t.title} intro={t.lead} image={t.image} alt={t.title} breadcrumb={topicLabels[locale][slug]} />
+  <Management locale={locale} />
+  <section class="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28 lg:px-10">
+    <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-20">
+      <div class="space-y-14">
+        {t.sections.map((section) => <section><h2 class="font-serif-jp text-2xl leading-relaxed text-wood-deep sm:text-3xl">{section.heading}</h2><p class="mt-5 text-base leading-9 text-ink-soft">{section.body}</p></section>)}
+      </div>
+      <aside class="h-fit rounded-3xl bg-ticket-pale p-7 lg:sticky lg:top-28">
+        <h2 class="font-serif-jp text-xl text-wood-deep">{prompts.plan}</h2>
+        <ol class="mt-6 space-y-6">{t.steps.map((step, index) => <li class="flex gap-4 text-sm leading-7"><span class="font-serif-jp text-2xl text-ticket">{String(index + 1).padStart(2, '0')}</span><span>{step}</span></li>)}</ol>
+      </aside>
+    </div>
+  </section>
+  <section class="mx-auto max-w-7xl px-5 pb-20 sm:px-8 lg:px-10">
+    <h2 class="font-serif-jp text-3xl text-wood-deep">{prompts.facts}</h2>
+    <dl class="mt-7 grid gap-4 sm:grid-cols-3">
+      {[[prompts.location, site.postalAddress], [prompts.fee, prompts.free], [prompts.stay, prompts.minutes]].map(([label, value]) => <div class="rounded-3xl border border-wood/10 bg-white/65 p-7"><dt class="text-sm text-ink-soft">{label}</dt><dd class="mt-3 font-serif-jp text-lg text-wood-deep">{value}</dd></div>)}
+    </dl>
+    <h2 class="mt-16 font-serif-jp text-3xl text-wood-deep">{prompts.photos}</h2>
+    <div class="mt-8 grid gap-5 md:grid-cols-2"><img src={t.image} class="h-full w-full rounded-3xl object-cover" loading="lazy" alt={t.title} /><img src={secondaryPhoto} class="h-full w-full rounded-3xl object-cover" loading="lazy" alt={prompts.photos} /></div>
+    <h2 class="mt-16 font-serif-jp text-3xl text-wood-deep">{prompts.faq}</h2>
+    <div class="mt-8 divide-y divide-wood/15 border-y border-wood/15">{[[prompts.question, prompts.answer], [prompts.question2, prompts.answer2]].map(([question, answer]) => <details class="py-5"><summary class="cursor-pointer font-serif-jp text-lg">{question}</summary><p class="pt-4 leading-8 text-ink-soft">{answer}</p></details>)}</div>
+  </section>
+  <section class="bg-paper-deep/55 py-20"><div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+    <h2 class="font-serif-jp text-3xl text-wood-deep">{prompts.attention}</h2><p class="mt-6 max-w-4xl leading-9 text-ink-soft">{t.tip}</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href={topicMap} target="_blank" rel="noopener noreferrer" class="rounded-full bg-wood-deep px-6 py-3 text-white">{prompts.maps} ↗</a>
+      {slug === 'kofuku-to-aikoku' && <a href={aikokuMap} target="_blank" rel="noopener noreferrer" class="rounded-full border border-wood/25 px-6 py-3 text-wood-deep">{prompts.aikoku} ↗</a>}
+      <a href={localizedPath(t.related, locale)} class="rounded-full border border-wood/25 px-6 py-3 text-wood-deep">{prompts.route} →</a>
+    </div>
+    <div class="mt-10 border-t border-wood/10 pt-6 text-sm leading-7 text-ink-soft"><p class="font-medium">{prompts.sources} · 2026-11-18</p><a class="underline" href={t.source.url} target="_blank" rel="noopener noreferrer">{t.source.label} ↗</a></div>
+  </div></section>
+  <section class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10"><h2 class="font-serif-jp text-3xl text-wood-deep">{prompts.related}</h2><div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">{alternate.map((other) => <a href={localizedPath(`/${other}/`, locale)} class="rounded-3xl border border-wood/10 bg-white/65 p-6 text-wood-deep transition hover:border-ticket"><span class="text-xs text-ticket">KOFUKU GUIDE</span><p class="mt-3 text-lg">{topicLabels[locale][other]} →</p></a>)}</div></section>
+</BaseLayout>

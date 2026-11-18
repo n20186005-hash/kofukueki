@@ -1,4 +1,4 @@
-import type { Locale } from './i18n';
+import type { Locale } from '../i18n';
 
 export interface QuickFact { label: string; value: string; note: string; }
 export interface TimelineItem { year: string; era: string; title: string; body: string; }

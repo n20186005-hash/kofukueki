@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../PageHero.astro';
+import Management from '../Management.astro';
+import { nearbyInfo, nearbyText, type NearbySlug } from '../../data/nearby';
+import { localizedPath, type Locale } from '../../i18n';
+interface Props { locale: Locale; slug: NearbySlug }
+const { locale, slug } = Astro.props;
+const spot = nearbyInfo[slug];
+const t = nearbyText[locale][slug];
+const l = {
+  ja: { overview: '見どころ・背景', history: '歴史と文化', feature: '建築・観察ポイント', facts: '基本情報', hours: '開館・見学', fee: '料金', access: 'アクセス', route: 'おすすめの見学順', photos: '撮影ポイント', faq: 'よくある質問', travel: '旅行前の注意', map: 'この場所を地図で開く', nearby: 'あわせて巡る', site: '幸福駅跡', source: '公式参考資料' },
+  zh: { overview: '景點介紹', history: '歷史與文化', feature: '建築與觀察重點', facts: '基本資料', hours: '開放資訊', fee: '費用', access: '交通', route: '建議參觀路線', photos: '拍攝位置', faq: '常見問題', travel: '出發前提醒', map: '查看本景點地圖', nearby: '順道參觀', site: '幸福車站遺跡', source: '參考資料' },
+  en: { overview: 'Explore', history: 'History & culture', feature: 'Architecture & what to notice', facts: 'Visitor essentials', hours: 'Opening', fee: 'Admission', access: 'Location', route: 'Suggested visit', photos: 'Photography', faq: 'Frequently asked questions', travel: 'Before visiting', map: 'Open this place in Maps', nearby: 'Visit together', site: 'Former Kofuku Station', source: 'Official source' },
+  ko: { overview: '장소 소개', history: '역사와 문화', feature: '건축과 관찰 포인트', facts: '기본 정보', hours: '운영 안내', fee: '입장료', access: '위치', route: '추천 관람 순서', photos: '사진 촬영', faq: '자주 묻는 질문', travel: '방문 전 참고', map: '이 장소 지도 열기', nearby: '함께 둘러보기', site: '옛 고후쿠역', source: '공식 자료' },
+}[locale];
+const uri = localizedPath(`/nearby/${slug}/`, locale);
+const freeLabel = { ja: '無料', zh: '免費', en: 'Free', ko: '무료' }[locale];
+const schema = { '@context': 'https://schema.org', '@type': 'TouristAttraction', name: t.name, description: t.about, url: `https://kofukueki.com${uri}`, image: `https://kofukueki.com${spot.photo}`, address: { '@type': 'PostalAddress', streetAddress: spot.address, addressCountry: 'JP' }, isAccessibleForFree: true };
+---
+<BaseLayout locale={locale} path={`/nearby/${slug}/`} title={t.name} description={t.about} image={spot.photo} jsonLd={schema}>
+  <PageHero eyebrow="AROUND KOFUKU" title={t.name} intro={t.tagline} image={spot.photo} alt={spot.alt} breadcrumb={t.name} />
+  <Management locale={locale} place={slug === 'aikoku-station' ? 'aikoku' : 'shrine'} />
+  <section class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10"><div class="grid gap-12 lg:grid-cols-[1.2fr_0.8fr]">
+    <div><p class="text-xs tracking-[0.2em] text-ticket">EXPLORE</p><h2 class="mt-4 font-serif-jp text-3xl text-wood-deep">{l.overview}</h2><p class="mt-6 leading-9 text-ink-soft">{t.about}</p>
+      <h2 class="mt-12 font-serif-jp text-3xl text-wood-deep">{l.history}</h2><p class="mt-6 leading-9 text-ink-soft">{t.history}</p>
+      <h2 class="mt-12 font-serif-jp text-3xl text-wood-deep">{l.feature}</h2><p class="mt-6 leading-9 text-ink-soft">{t.observation}</p>
+    </div>
+    <aside class="h-fit rounded-3xl bg-ticket-pale p-8"><h2 class="font-serif-jp text-2xl text-wood-deep">{l.facts}</h2><dl class="mt-6 space-y-5 text-sm leading-7"><div><dt class="text-ink-soft">{l.access}</dt><dd>{spot.address}</dd></div><div><dt class="text-ink-soft">{l.fee}</dt><dd>{freeLabel}</dd></div><div><dt class="text-ink-soft">{l.hours}</dt><dd>{t.caution}</dd></div></dl><a href={spot.map} target="_blank" rel="noopener noreferrer" class="mt-7 inline-flex rounded-full bg-wood-deep px-5 py-3 text-white">{l.map} ↗</a></aside>
+  </div></section>
+  <section class="bg-paper-deep/55 py-20"><div class="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10"><h2 class="font-serif-jp text-3xl text-wood-deep">{l.route}</h2><ol class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{t.route.map((step, i) => <li class="rounded-3xl bg-white/70 p-7"><span class="font-serif-jp text-3xl text-ticket">{String(i+1).padStart(2,'0')}</span><p class="mt-4 leading-8">{step}</p></li>)}</ol></div></section>
+  <section class="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10"><h2 class="font-serif-jp text-3xl text-wood-deep">{l.photos}</h2><figure class="mt-8 grid gap-5 lg:grid-cols-[1fr_1fr]"><img class="w-full rounded-3xl object-cover" src={spot.photo} loading="lazy" alt={spot.alt} /><figcaption class="flex items-center rounded-3xl bg-ticket-pale p-9 leading-9 text-ink-soft">{t.observation}</figcaption></figure><h2 class="mt-16 font-serif-jp text-3xl text-wood-deep">{l.faq}</h2><div class="mt-8 divide-y divide-wood/15 border-y border-wood/15">{t.faq.map(([q,a]) => <details class="py-5"><summary class="cursor-pointer font-serif-jp text-lg">{q}</summary><p class="pt-4 leading-8 text-ink-soft">{a}</p></details>)}</div><h2 class="mt-16 font-serif-jp text-3xl text-wood-deep">{l.travel}</h2><p class="mt-5 leading-9 text-ink-soft">{t.caution}</p><a class="mt-5 inline-block text-wood underline" href={spot.source} target="_blank" rel="noopener noreferrer">{l.source} ↗</a></section>
+  <section class="mx-auto max-w-7xl px-5 pb-16 sm:px-8 lg:px-10"><h2 class="font-serif-jp text-3xl text-wood-deep">{l.nearby}</h2><a class="mt-7 inline-flex rounded-full border border-wood/25 px-7 py-3 text-wood" href={localizedPath('/', locale)}>{l.site} →</a></section>
+</BaseLayout>

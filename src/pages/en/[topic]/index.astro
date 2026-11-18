@@ -1,0 +1,7 @@
+---
+import Topic from '../../../components/pages/Topic.astro';
+import { topicSlugs } from '../../../data/topics';
+export function getStaticPaths() { return topicSlugs.map((topic) => ({ params: { topic }, props: { topic } })); }
+const { topic } = Astro.props;
+---
+<Topic locale="en" slug={topic} />

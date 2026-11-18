@@ -3,7 +3,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
 import RouteMap from '../../components/RouteMap.astro';
 import { quickFacts, highlights, timeline, faqs, pages } from '../../i18n/content';
-import { site } from '../../data/site';
+import { site, rating } from '../../data/site';
+import { nearbyText, nearbyInfo, nearbySlugs } from '../../data/nearby';
+import { localizedPath } from '../../i18n';
 import { getUi } from '../../i18n';
 import type { Locale } from '../../i18n';
 
@@ -15,6 +17,7 @@ const qf = quickFacts[locale];
 const hl = highlights[locale];
 const tl = timeline[locale];
 const fq = faqs[locale];
+const nearbyDistance: Record<Locale, [string, string]> = { ja: ['車で約15分', '徒歩約15分'], zh: ['車程約15分鐘', '步行約15分鐘'], en: ['About 15 min by car', 'About 15 min on foot'], ko: ['차로 약15분', '도보 약15분'] };
 
 const attractionSchema = {
   '@context': 'https://schema.org',
@@ -35,11 +38,6 @@ const attractionSchema = {
   },
   geo: { '@type': 'GeoCoordinates', latitude: site.coordinates.lat, longitude: site.coordinates.lng },
   touristType: ['鉄道ファン', 'カップル', '家族旅行', '写真旅行'],
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: site.rating.value,
-    reviewCount: site.rating.count,
-  },
   sameAs: ['https://maps.app.goo.gl/5tG7m8dAcZR5knuE7'],
 };
 ---
@@ -58,7 +56,7 @@ const attractionSchema = {
           {t.heroTitleMain}
         </h1>
         <p class="mt-3 font-serif-jp text-xl tracking-[0.12em] text-ticket-soft sm:text-2xl">{t.heroTitleLines[0]}{t.heroTitleLines[1]}</p>
-        <p class="mt-4 inline-flex items-center gap-2 rounded-full bg-black/25 px-4 py-1.5 text-sm text-white/90 backdrop-blur" set:html={`${ut.ratingLabel} <strong class="text-ticket-soft">${site.rating.value}</strong>${' '}（${site.rating.count.toLocaleString('en-US')}）`}></p>
+        <p class="mt-4 inline-flex items-center gap-2 rounded-full bg-black/25 px-4 py-1.5 text-sm text-white/90 backdrop-blur">{ut.ratingLabel} <strong class="text-ticket-soft">{rating.value}</strong>（{rating.count.toLocaleString('en-US')}）</p>
         <p class="mt-6 max-w-2xl text-base leading-8 text-white/78 sm:text-lg">
           {t.heroSubLines[0]}<br class="hidden sm:block" />{t.heroSubLines[1]}
         </p>
@@ -181,6 +179,13 @@ const attractionSchema = {
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28 lg:px-10" id="nearby">
+    <SectionHeading eyebrow="EXPLORE TOKACHI" title={{ ja: '幸福駅から、もう一歩先へ。', zh: '幸福車站周邊值得順遊', en: 'Explore beyond Kofuku Station', ko: '고후쿠역 주변 함께 둘러보기' }[locale]} text={{ ja: '旧広尾線の物語と十勝の田園風景をつなぐ、近隣の二つの場所。', zh: '串聯舊廣尾線歷史與十勝田園景觀的兩處周邊景點。', en: 'Two distinct stops for railway heritage and the Tokachi countryside.', ko: '옛 철도 역사와 도카치 전원 풍경을 만나는 두 곳.' }[locale]} />
+    <div class="mt-10 grid gap-7 md:grid-cols-2">
+      {nearbySlugs.map((slug, index) => <a href={localizedPath(`/nearby/${slug}/`, locale)} class="group overflow-hidden rounded-[1.8rem] border border-wood/10 bg-white/75 transition hover:shadow-soft"><div class="photo-frame aspect-[16/9]"><img class="h-full w-full object-cover" src={nearbyInfo[slug].photo} loading="lazy" alt={nearbyText[locale][slug].name} /></div><div class="p-7"><h3 class="font-serif-jp text-2xl text-wood-deep">{nearbyText[locale][slug].name}</h3><p class="mt-3 text-sm leading-7 text-ink-soft">{nearbyText[locale][slug].tagline}</p><p class="mt-5 text-sm text-wood">{nearbyDistance[locale][index]} →</p></div></a>)}
     </div>
   </section>
 

@@ -1,6 +1,8 @@
 ---
 import { site } from '../data/site';
 import { ui, locales, localeMeta, localizedPath, type Locale } from '../i18n';
+import { topicLabels, topicSlugs } from '../data/topics';
+import { nearbySlugs, nearbyText } from '../data/nearby';
 
 interface Props {
   locale?: Locale;
@@ -26,6 +28,7 @@ const infoLinks = [
   { href: localizedPath('/privacy/', locale), label: t.footerPrivacy },
 ];
 const accessHref = localizedPath('/access/', locale);
+const parkingLabels: Record<Locale, string> = { ja: '無料駐車場', zh: '免費停車場', en: 'Free parking', ko: '무료 주차장' };
 
 const langLinks = locales.map((loc) => ({
   locale: loc,
@@ -70,6 +73,9 @@ const langLinks = locales.map((loc) => ({
           <p class="mb-4 text-xs tracking-[0.18em] text-ticket-soft">{t.footerNavTitle}</p>
           <ul class="space-y-3 text-white/68">
             {nav.map((item) => <li><a class="hover:text-white" href={item.href}>{item.label}</a></li>)}
+            <li><a class="hover:text-white" href={localizedPath('/parking/', locale)}>{parkingLabels[locale]}</a></li>
+            {topicSlugs.map((topic) => <li><a class="hover:text-white" href={localizedPath(`/${topic}/`, locale)}>{topicLabels[locale][topic]}</a></li>)}
+            {nearbySlugs.map((place) => <li><a class="hover:text-white" href={localizedPath(`/nearby/${place}/`, locale)}>{nearbyText[locale][place].name}</a></li>)}
           </ul>
         </div>
         <div>
