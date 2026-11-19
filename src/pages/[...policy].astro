@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localizedPath, type Locale } from '../i18n';
+const languages = ['ja','zh','en','ko'] as const;
+const slugs = ['privacy-policy','terms-of-service','cookie-settings'] as const;
+export function getStaticPaths() {
+  return languages.flatMap(locale => slugs.map(kind => ({
+    params: { policy: locale === 'ja' ? kind : locale + '/' + kind },
+    props: { locale, kind },
+  })));
+}
+type Kind = typeof slugs[number];
+interface Props { locale: Locale; kind: Kind }
+const { locale, kind } = Astro.props;
+const copy = {
+  ja: {
+    'privacy-policy': { title:'プライバシーポリシー', intro:'当サイトが取り扱うデータと、閲覧者のプライバシーについてご案内します。', sections:[['取得する情報','サイトのアクセス状況を把握するため、アクセス日時、閲覧ページ、端末やブラウザーの種類、概略の地域情報などが解析サービスにより処理される場合があります。フォームによる氏名・連絡先の収集は行っていません。'],['利用目的と外部サービス','アクセス傾向の把握、ページ品質の改善、不正な利用の防止を目的とします。Google Analytics を利用する場合があります。地図など外部サイトへのリンクを開くと、そのサイトの規定が適用されます。'],['保存と変更','任意の解析利用は Cookie 設定ページから停止できます。ブラウザーの保存領域を消去すると設定も消去されます。ポリシーは必要に応じて改訂します。']] },
+    'terms-of-service': { title:'利用規約', intro:'幸福駅と周辺を紹介する独立した旅行情報サイトの利用条件です。', sections:[['情報の性質','記事は公開情報をもとに旅行計画を助ける目的で掲載しています。現地施設の公式窓口ではなく、運営・予約・交通機関を代行しません。'],['現地での確認','営業時間、料金、バス時刻、道路状況、立入制限は変更される場合があります。旅行前に施設・行政・交通事業者の最新案内を確認してください。'],['利用上のお願い','私有地への立入りを避け、現地の表示や交通ルールに従ってください。外部リンク先のサービスは各提供者の条件に従います。']] },
+    'cookie-settings': { title:'Cookie 設定', intro:'分析用 Cookie の利用について選択できます。', sections:[['必須の保存','このページでは選択内容をブラウザーのローカル保存領域に記録します。設定の保持に必要なもので、広告向けのプロフィール作成には使用しません。'],['任意のアクセス解析','アクセス解析はサイト改善のために使用します。下のボタンから許可または拒否を保存できます。変更は次回のページ読み込みから反映されます。'],['ブラウザー設定','Cookie やサイトデータはブラウザーの設定からも削除できます。外部の Google Maps などでは別の規定が適用されます。']] }
+  },
+  zh: {
+    'privacy-policy': { title:'隱私政策', intro:'說明幸福車站旅遊指南如何處理訪問資料與保障讀者隱私。', sections:[['收集的資訊','本站不提供要求姓名或聯絡方式的表單。網站分析服務可能處理瀏覽時間、頁面、裝置與瀏覽器類型，以及概略地區等資料。'],['使用目的與第三方','資料用於理解網站流量、改善內容與防止濫用。本站可能使用 Google Analytics。點擊 Google Maps 等外部服務後，適用對方的隱私規定。'],['資料保存與更新','可於 Cookie 設定頁拒絕非必要的分析。清除瀏覽器網站資料會移除已保存的偏好；本政策可能隨服務調整而更新。']] },
+    'terms-of-service': { title:'服務條款', intro:'使用本獨立幸福車站旅遊資訊網站時，請留意以下事項。', sections:[['資訊性質','本站整理公開旅遊資訊，協助規劃行程，並非景點、政府或運輸業者的官方服務，也不提供訂位或營運服務。'],['行前核對','營業時間、費用、巴士班次、道路與進入限制可能變動，請以現場與主管單位的最新公告為準。'],['使用責任','請遵守現場標誌、交通規則及私人土地界線。外部連結網站由各自提供者管理，適用其使用條款。']] },
+    'cookie-settings': { title:'Cookie 設定', intro:'選擇是否允許本站使用非必要的流量分析。', sections:[['必要儲存','本站將您的選擇保存在瀏覽器本機儲存空間，用以記住偏好；不作廣告定向分析。'],['選擇分析偏好','可使用下方按鈕允許或拒絕 Google Analytics。儲存後，下次載入頁面即依照選擇套用。'],['瀏覽器管理','您也可以清除瀏覽器 Cookie 或網站資料。Google Maps 等外部網站有自己的 Cookie 政策。']] }
+  },
+  en: {
+    'privacy-policy': { title:'Privacy Policy', intro:'How this independent Kofuku Station visitor guide handles browsing information.', sections:[['Information handled','We do not collect names or contact details through a form. Analytics services may process visit times, pages viewed, device and browser types, and approximate region.'],['Purpose and third parties','We use aggregate trends to improve content and prevent misuse. Google Analytics may be used. Following an external Google Maps link subjects you to that provider’s policies.'],['Choices and revisions','You may decline optional analytics on the Cookie Settings page. Clearing site data removes saved preferences. This policy may be updated as the site changes.']] },
+    'terms-of-service': { title:'Terms of Service', intro:'Conditions for using this independent visitor information site.', sections:[['Nature of the guide','Content summarizes public travel information to help you plan. We are not an official station, city, or transport operator and do not manage facilities or bookings.'],['Check before you travel','Opening hours, prices, bus schedules, road conditions, and access restrictions may change. Consult current announcements from the relevant venue or authority.'],['Responsible use','Respect signs, road rules, worshippers, and private property. External websites are governed by their own terms.']] },
+    'cookie-settings': { title:'Cookie Settings', intro:'Choose whether this site may use optional traffic analytics.', sections:[['Essential storage','Your preference is saved locally in this browser so the site can remember your choice. It is not used to build an advertising profile.'],['Analytics choice','Use the buttons below to allow or decline Google Analytics. Your choice takes effect on subsequent page loads.'],['Browser controls','You can also clear cookies and site data in your browser. External services such as Google Maps have separate policies.']] }
+  },
+  ko: {
+    'privacy-policy': { title:'개인정보 처리방침', intro:'독립적인 고후쿠역 여행 안내 사이트의 방문 정보 처리 방식을 설명합니다.', sections:[['처리하는 정보','이름이나 연락처를 받는 양식은 운영하지 않습니다. 분석 서비스에서 방문 시각, 열람 페이지, 기기·브라우저 종류, 대략적인 지역 정보를 처리할 수 있습니다.'],['목적과 외부 서비스','사이트 이용 추세 파악과 콘텐츠 개선, 오용 방지에 활용합니다. Google Analytics를 사용할 수 있습니다. Google 지도 등 외부 사이트는 해당 서비스의 정책을 따릅니다.'],['선택과 변경','Cookie 설정에서 선택적 분석을 거부할 수 있습니다. 브라우저 데이터를 지우면 저장된 선택도 삭제됩니다. 정책은 필요에 따라 변경될 수 있습니다.']] },
+    'terms-of-service': { title:'이용약관', intro:'독립적인 고후쿠역 여행 정보 사이트 이용 안내입니다.', sections:[['정보의 성격','공개 여행 정보를 바탕으로 여행 계획을 돕습니다. 역 시설, 시청, 교통업체의 공식 서비스가 아니며 운영·예약을 대행하지 않습니다.'],['방문 전 확인','운영 시간, 요금, 버스 시간표, 도로와 출입 제한은 변경될 수 있습니다. 현장 및 관계 기관의 최신 공지를 확인하세요.'],['이용 시 주의','현장 표지, 교통 규칙, 사유지 경계를 지켜 주세요. 외부 링크는 각 서비스의 약관에 따릅니다.']] },
+    'cookie-settings': { title:'Cookie 설정', intro:'선택적 사이트 분석 허용 여부를 선택하세요.', sections:[['필수 저장','선택한 설정을 기억하기 위해 브라우저의 로컬 저장 공간에 보관합니다. 광고 프로필 작성에는 사용하지 않습니다.'],['분석 선택','아래 버튼으로 Google Analytics를 허용하거나 거부할 수 있습니다. 선택은 다음 페이지 로드부터 적용됩니다.'],['브라우저 관리','브라우저에서 쿠키와 사이트 데이터를 삭제할 수 있습니다. Google 지도 등 외부 서비스에는 별도 정책이 적용됩니다.']] }
+  }
+} as const;
+const t=copy[locale][kind];
+const labels={ja:['許可する','拒否する','現在の設定'],zh:['允許分析','拒絕分析','目前設定'],en:['Allow analytics','Decline analytics','Current setting'],ko:['분석 허용','분석 거부','현재 설정']}[locale];
+---
+<BaseLayout locale={locale} path={'/'+kind+'/'} title={t.title} description={t.intro} noindex={kind==='cookie-settings'}>
+  <section class="bg-paper-deep/55 py-20 sm:py-28"><div class="mx-auto max-w-4xl px-5 sm:px-8 lg:px-10"><p class="text-xs tracking-[0.2em] text-ticket">KOFUKU STATION GUIDE</p><h1 class="mt-5 font-serif-jp text-4xl text-wood-deep">{t.title}</h1><p class="mt-6 leading-9 text-ink-soft">{t.intro}</p></div></section>
+  <section class="mx-auto max-w-4xl space-y-12 px-5 py-16 sm:px-8 lg:px-10">
+    {t.sections.map(([title,body])=><article><h2 class="font-serif-jp text-2xl text-wood-deep">{title}</h2><p class="mt-5 leading-9 text-ink-soft">{body}</p></article>)}
+    {kind==='cookie-settings' && <div class="rounded-3xl bg-ticket-pale p-7"><p class="mb-5 text-sm text-ink-soft">{labels[2]}: <strong id="analytics-status">—</strong></p><div class="flex flex-wrap gap-3"><button type="button" data-analytics-choice="granted" class="rounded-full bg-wood-deep px-6 py-3 text-white">{labels[0]}</button><button type="button" data-analytics-choice="denied" class="rounded-full border border-wood-deep px-6 py-3 text-wood-deep">{labels[1]}</button></div></div>}
+  </section>
+  {kind==='cookie-settings' && <script is:inline>
+    const status = document.getElementById('analytics-status');
+    const show = () => { if (status) status.textContent = localStorage.getItem('kofuku-analytics-consent') || 'default'; };
+    document.querySelectorAll('[data-analytics-choice]').forEach(button => button.addEventListener('click', () => {
+      localStorage.setItem('kofuku-analytics-consent', button.getAttribute('data-analytics-choice')); show();
+    }));
+    show();
+  </script>}
+</BaseLayout>
