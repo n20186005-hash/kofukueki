@@ -1,100 +1,31 @@
 ---
-import { site } from '../data/site';
-import { ui, locales, localeMeta, localizedPath, type Locale } from '../i18n';
-import { topicLabels, topicSlugs } from '../data/topics';
-import { nearbySlugs, nearbyText } from '../data/nearby';
-
-interface Props {
-  locale?: Locale;
-  path?: string;
-}
-const { locale = 'ja', path = '/' } = Astro.props;
-const t = ui[locale];
-
-const navDefs: Array<{ href: string; key: keyof typeof ui.ja.nav }> = [
-  { href: '/about/', key: 'about' },
-  { href: '/guide/', key: 'guide' },
-  { href: '/access/', key: 'access' },
-  { href: '/food/', key: 'food' },
-  { href: '/ticket/', key: 'ticket' },
-  { href: '/aikoku-kofuku/', key: 'aikoku' },
-  { href: '/faq/', key: 'faq' },
+import { ui, localizedPath, type Locale } from '../i18n';
+interface Props { locale?: Locale; path?: string }
+const { locale = 'ja' } = Astro.props;
+const names: Record<Locale,string> = { ja:'幸福駅', zh:'幸福車站', en:'Former Kofuku Station', ko:'고후쿠역' };
+const rights: Record<Locale,string> = { ja:'無断転載を禁じます', zh:'版權所有', en:'All rights reserved', ko:'모든 권리 보유' };
+const legal: Record<Locale,{privacy:string;terms:string;cookies:string}> = {
+  ja:{privacy:'プライバシーポリシー',terms:'利用規約',cookies:'Cookie 設定'},
+  zh:{privacy:'隱私政策',terms:'服務條款',cookies:'Cookie 設定'},
+  en:{privacy:'Privacy Policy',terms:'Terms of Service',cookies:'Cookie Settings'},
+  ko:{privacy:'개인정보 처리방침',terms:'이용약관',cookies:'Cookie 설정'},
+};
+const links = [
+  { path:'/privacy-policy/', label:legal[locale].privacy },
+  { path:'/terms-of-service/', label:legal[locale].terms },
+  { path:'/cookie-settings/', label:legal[locale].cookies },
 ];
-const nav = navDefs.map((item) => ({ href: localizedPath(item.href, locale), label: t.nav[item.key] }));
-
-const infoLinks = [
-  { href: localizedPath('/photos/', locale), label: t.footerPhotos },
-  { href: localizedPath('/credits/', locale), label: t.footerCredits },
-  { href: localizedPath('/privacy/', locale), label: t.footerPrivacy },
-];
-const accessHref = localizedPath('/access/', locale);
-const parkingLabels: Record<Locale, string> = { ja: '無料駐車場', zh: '免費停車場', en: 'Free parking', ko: '무료 주차장' };
-
-const langLinks = locales.map((loc) => ({
-  locale: loc,
-  label: localeMeta[loc].label,
-  href: localizedPath(path, loc),
-  current: loc === locale,
-}));
 ---
 <footer class="mt-24 border-t border-wood/10 bg-wood-deep text-white sm:mt-32">
-  <div class="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:px-10">
-    <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
-      <div>
-        <p class="rule-line text-xs tracking-[0.2em] text-ticket-soft">帯広・十勝</p>
-        <p class="mt-7 max-w-xl font-serif-jp text-3xl leading-relaxed tracking-[0.08em] sm:text-4xl">
-          愛の国から、<br />幸福へ。
-        </p>
-        <p class="mt-6 max-w-lg text-sm leading-7 text-white/65">{t.footerTagline}</p>
-        <details class="mt-6 lg:hidden">
-          <summary class="cursor-pointer text-xs tracking-[0.18em] text-ticket-soft">{t.langSwitchLabel}</summary>
-          <ul class="mt-3 flex flex-wrap gap-2">
-            {langLinks.map((l) => (
-              <li>
-                <a
-                  href={l.href}
-                  hreflang={localeMeta[l.locale].hreflang}
-                  class:list={[
-                    'rounded-full border px-3 py-1.5 text-xs',
-                    l.current ? 'border-ticket bg-ticket-pale text-wood-deep' : 'border-white/25 text-white/80',
-                  ]}
-                  aria-current={l.current ? 'true' : undefined}
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </details>
+  <div class="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-10">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
+      <div class="max-w-3xl">
+        <p class="text-sm text-white/90">© 2026 {names[locale]} · {rights[locale]}</p>
+        <p class="mt-3 text-sm leading-7 text-white/65">{ui[locale].footerDisclaimer}</p>
       </div>
-
-      <div class="grid grid-cols-2 gap-8 text-sm sm:grid-cols-3">
-        <div>
-          <p class="mb-4 text-xs tracking-[0.18em] text-ticket-soft">{t.footerNavTitle}</p>
-          <ul class="space-y-3 text-white/68">
-            {nav.map((item) => <li><a class="hover:text-white" href={item.href}>{item.label}</a></li>)}
-            <li><a class="hover:text-white" href={localizedPath('/parking/', locale)}>{parkingLabels[locale]}</a></li>
-            {topicSlugs.map((topic) => <li><a class="hover:text-white" href={localizedPath(`/${topic}/`, locale)}>{topicLabels[locale][topic]}</a></li>)}
-            {nearbySlugs.map((place) => <li><a class="hover:text-white" href={localizedPath(`/nearby/${place}/`, locale)}>{nearbyText[locale][place].name}</a></li>)}
-          </ul>
-        </div>
-        <div>
-          <p class="mb-4 text-xs tracking-[0.18em] text-ticket-soft">{t.footerInfoTitle}</p>
-          <ul class="space-y-3 text-white/68">
-            {infoLinks.map((item) => <li><a class="hover:text-white" href={item.href}>{item.label}</a></li>)}
-          </ul>
-        </div>
-        <div class="col-span-2 sm:col-span-1">
-          <p class="mb-4 text-xs tracking-[0.18em] text-ticket-soft">{t.footerLocation}</p>
-          <address class="not-italic leading-7 text-white/68">{site.postalAddress}</address>
-          <a class="mt-3 inline-block text-white underline decoration-white/30 hover:decoration-white" href={accessHref}>{t.footerViewAccess}</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-7 text-xs leading-6 text-white/52 sm:flex-row sm:items-end sm:justify-between">
-      <p>{t.footerDisclaimer}</p>
-      <p class="shrink-0">© 2026 {site.domain}</p>
+      <nav class="flex flex-wrap gap-x-6 gap-y-3 text-sm text-white/80 lg:justify-end" aria-label={legal[locale].privacy}>
+        {links.map(link => <a href={localizedPath(link.path, locale)} class="underline decoration-white/30 underline-offset-4 hover:text-white">{link.label}</a>)}
+      </nav>
     </div>
   </div>
 </footer>
