@@ -67,12 +67,19 @@ const alternates = getHreflangAlternates(path, site.url);
 
     {schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
 
-    <script async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
     <script is:inline define:vars={{ gaId }}>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', gaId, { anonymize_ip: true });
+      try {
+        if (localStorage.getItem('kofuku-analytics-consent') === 'granted') {
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
+          document.head.appendChild(script);
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId, { anonymize_ip: true });
+        }
+      } catch (_) { /* Browsing remains available when local storage is blocked. */ }
     </script>
   </head>
   <body>
