@@ -4,7 +4,7 @@ import { localizedPath, type Locale } from '../i18n';
 const languages = ['ja','zh','en','ko'] as const;
 const slugs = ['privacy-policy','terms-of-service','cookie-settings'] as const;
 export function getStaticPaths() {
-  return languages.flatMap(locale => slugs.map(kind => ({
+  return (['ja','zh','en','ko'] as const).flatMap(locale => (['privacy-policy','terms-of-service','cookie-settings'] as const).map(kind => ({
     params: { policy: locale === 'ja' ? kind : locale + '/' + kind },
     props: { locale, kind },
   })));
